@@ -14,8 +14,9 @@ import {
   getCapacitadores,
   getFichas,
 } from "../api/api";
+import "../calendario.css";
 
-const Calendariopct = () => {
+const Calendario = () => {
   const [events, setEvents] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -29,7 +30,8 @@ const Calendariopct = () => {
     endTime: "",
     taller: null,
     capacitador: null,
-    ficha: [],
+    ficha: null,
+    ambiente: "",
     allDay: false,
   });
   const [sede] = useState([
@@ -44,10 +46,17 @@ const Calendariopct = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Llamadas a la API para obtener los datos
         const [talleresData, capacitadoresData, fichasData] = await Promise.all(
           [getTalleres(), getCapacitadores(), getFichas()]
         );
 
+        // Verificamos si los datos se están obteniendo correctamente
+        console.log("Talleres data:", talleresData);
+        console.log("Capacitadores data:", capacitadoresData);
+        console.log("Fichas data:", fichasData);
+
+        // Mapeamos los datos para usarlos en react-select
         setTalleres(
           talleresData.map((taller) => ({
             value: taller.id_Taller,
@@ -91,6 +100,7 @@ const Calendariopct = () => {
             taller: event.taller,
             capacitador: event.capacitador,
             ficha: event.ficha,
+            ambiente: event.ambiente,
           },
         }))
       );
@@ -109,7 +119,8 @@ const Calendariopct = () => {
       endTime: "",
       taller: null,
       capacitador: null,
-      ficha: [],
+      ficha: null,
+      ambiente: "",
       allDay: false,
     });
     setIsEditMode(false);
@@ -132,8 +143,8 @@ const Calendariopct = () => {
         capacitadores.find(
           (capacitador) => capacitador.value === eventProps.capacitador
         ) || null,
-      ficha:
-        fichas.filter((ficha) => eventProps.ficha.includes(ficha.value)) || [],
+      ficha: fichas.find((ficha) => ficha.value === eventProps.ficha) || null,
+      ambiente: eventProps.ambiente || "",
       allDay: info.event.allDay || false,
     });
     setIsEditMode(true);
@@ -141,15 +152,9 @@ const Calendariopct = () => {
   };
 
   const handleEventSubmit = async () => {
-    if (
-      !newEvent.date ||
-      !newEvent.startTime ||
-      !newEvent.taller ||
-      !newEvent.capacitador ||
-      !newEvent.sede
-    ) {
+    if (!newEvent.date || !newEvent.startTime) {
       alert(
-        "Por favor complete todos los campos obligatorios: sede, taller, capacitador, fecha y hora de inicio."
+        "Por favor complete los campos obligatorios: título, fecha y hora de inicio."
       );
       return;
     }
@@ -168,7 +173,8 @@ const Calendariopct = () => {
         descripcion: newEvent.descripcion || "",
         taller: newEvent.taller ? newEvent.taller.value : "",
         capacitador: newEvent.capacitador ? newEvent.capacitador.value : "",
-        ficha: newEvent.ficha ? newEvent.ficha.map((f) => f.value) : [],
+        ficha: newEvent.ficha ? newEvent.ficha.value : "",
+        ambiente: newEvent.ambiente || "",
       },
     };
 
@@ -213,7 +219,7 @@ const Calendariopct = () => {
 
   return (
     <>
-      <div className="calendar-container-ptc">
+      <div className="calendar-container-pct">
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
@@ -229,17 +235,140 @@ const Calendariopct = () => {
         show={showModal}
         onHide={() => setShowModal(false)}
         size="lg"
-        className="modal-dialog-ptc"
+        className="my-custom-modal"
       >
         <Modal.Header closeButton>
           <Modal.Title>
             {isEditMode ? "Editar Programación" : "Agregar Programación"}
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="modal-content-ptc">
-          <Form>{/* ... tus campos del formulario ... */}</Form>
+        <Modal.Body>
+          <Form>
+            <div className="row">
+              <div className="col-md-6">
+                <Form.Group controlId="eventSede">
+                  <Form.Label>Sede</Form.Label>
+                  <Select
+                    name="sede"
+                    options={sede}
+                    value={newEvent.sede}
+                    onChange={handleSelectChange}
+                    placeholder="Selecciona la sede"
+                  />
+                </Form.Group>
+              </div>
+
+              <div className="col-md-6">
+                <Form.Group controlId="eventAmbiente">
+                  <Form.Label>Ambiente</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="ambiente"
+                    value={newEvent.ambiente}
+                    onChange={handleInputChange}
+                    placeholder="Ingrese el ambiente"
+                  />
+                </Form.Group>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-12">
+                <Form.Group controlId="eventDescripcion">
+                  <Form.Label>Descripción</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    name="descripcion"
+                    value={newEvent.descripcion}
+                    onChange={handleInputChange}
+                    style={{ width: "100%" }}
+                  />
+                </Form.Group>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-6">
+                <Form.Group controlId="eventDate">
+                  <Form.Label>Fecha</Form.Label>
+                  <Form.Control
+                    type="date"
+                    name="date"
+                    value={newEvent.date}
+                    onChange={handleInputChange}
+                  />
+                </Form.Group>
+              </div>
+              <div className="col-md-6">
+                <Form.Group controlId="eventStartTime">
+                  <Form.Label>Hora de Inicio</Form.Label>
+                  <Form.Control
+                    type="time"
+                    name="startTime"
+                    value={newEvent.startTime}
+                    onChange={handleInputChange}
+                  />
+                </Form.Group>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-6">
+                <Form.Group controlId="eventEndTime">
+                  <Form.Label>Hora de Fin</Form.Label>
+                  <Form.Control
+                    type="time"
+                    name="endTime"
+                    value={newEvent.endTime}
+                    onChange={handleInputChange}
+                  />
+                </Form.Group>
+              </div>
+              <div className="col-md-6">
+                <Form.Group controlId="eventTaller">
+                  <Form.Label>Taller</Form.Label>
+                  <Select
+                    name="taller"
+                    options={talleres}
+                    value={newEvent.taller}
+                    onChange={handleSelectChange}
+                    placeholder="Selecciona el taller"
+                  />
+                </Form.Group>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-6">
+                <Form.Group controlId="eventCapacitador">
+                  <Form.Label>Capacitador</Form.Label>
+                  <Select
+                    name="capacitador"
+                    options={capacitadores}
+                    value={newEvent.capacitador}
+                    onChange={handleSelectChange}
+                    placeholder="Selecciona el capacitador"
+                  />
+                </Form.Group>
+              </div>
+              <div className="col-md-6">
+                <Form.Group controlId="eventFicha">
+                  <Form.Label>Ficha</Form.Label>
+                  <Select
+                    name="ficha"
+                    options={fichas}
+                    value={newEvent.ficha}
+                    onChange={handleSelectChange}
+                    placeholder="Selecciona la ficha"
+                    isMulti
+                  />
+                </Form.Group>
+              </div>
+            </div>
+          </Form>
         </Modal.Body>
-        <Modal.Footer className="modal-footer-ptc">
+        <Modal.Footer>
           {isEditMode && (
             <Button variant="danger" onClick={handleDeleteEvent}>
               Eliminar
@@ -248,11 +377,8 @@ const Calendariopct = () => {
           <Button variant="secondary" onClick={() => setShowModal(false)}>
             Cancelar
           </Button>
-          <Button className="btn-volver-ptc" >
-            Volver
-          </Button>
           <Button variant="primary" onClick={handleEventSubmit}>
-            {isEditMode ? "Guardar Cambios" : "Agregar"}
+            {isEditMode ? "Guardar Cambios" : "Crear Programación"}
           </Button>
         </Modal.Footer>
       </Modal>
@@ -260,4 +386,4 @@ const Calendariopct = () => {
   );
 };
 
-export default Calendariopct;
+export default Calendario;

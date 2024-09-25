@@ -1,0 +1,77 @@
+/* Archivo de estilos CSS */
+
+/* Estilo para el contenedor del calendario */
+.calendar-container-pct {
+  width: 100%; /* Ajustar tamaño del calendario */
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.fc-day-header {
+  background-color: #ffcc00; /* Color de los encabezados de los días */
+  color: #fff;
+}
+
+.fc-event {
+  color: white;
+  border: none;
+}
+
+/* Estilo para el contenedor del modal */
+.modal-dialog {
+  max-width: 40%; /* Mismo tamaño que el calendario */
+  max-height: 50vh;
+  margin: 0 auto; /* Centrar el modal horizontalmente */
+}
+
+.modal-content {
+  border-radius: 10px; /* Opcional: para que coincida con el calendario */
+  margin-top: 1.5%;
+}
+
+/* Cambia el color del botón "Agregar" en el modal a verde */
+.modal-footer .btn-primary {
+  background-color: #28a745; /* Verde Bootstrap */
+  border-color: #28a745;
+}
+
+.modal-footer .btn-primary:hover {
+  background-color: #218838; /* Verde más oscuro */
+  border-color: #1e7e34;
+}
+
+/* Aumenta la especificidad para asegurarte de que tus estilos se apliquen */
+.fc-button-primary {
+  background-color: #28a745 !important; /* Verde Bootstrap */
+  border-color: #28a745 !important;
+  color: white !important;
+}
+
+.fc-button-primary:hover {
+  background-color: #218838 !important; /* Verde más oscuro */
+  border-color: #1e7e34 !important;
+}
+
+/* Elimina la decoración del texto en los días de la semana y los números */
+.fc-daygrid-day-number,
+.fc-daygrid-day-top {
+  text-decoration: none !important;
+  color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1)) !important;
+}
+
+.modal-body .row {
+  margin-bottom: 15px; /* Espaciado entre filas */
+}
+
+.modal-body .col-md-6 {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+/* Aplica solo al formulario dentro de este modal específico */
+.my-custom-modal .modal-body form {
+  margin-top: 20px; /* Ajusta el valor según tus necesidades */
+}

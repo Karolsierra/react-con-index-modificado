@@ -4,7 +4,7 @@ import { utils, writeFile } from "xlsx";
 import { getbuscarUsuario } from "../api/api"; // Asegúrate de que la ruta a tu archivo api.js es correcta
 import { updateUsuario } from "../api/api";
 import { getIdUsuarioGlobal } from "../api/api"; // Asegúrate de que la ruta sea correcta
-import { registrarUsuario } from "../api/api";
+import { registerUsuario } from "../api/api";
 import { registrarUsuariosDesdeExcel } from "../api/api";
 
 function Usuarios1() {
@@ -82,12 +82,12 @@ function Usuarios1() {
         <div class="registrar-container">
           <form class="form-registrar-usuario" id="registrar-form" action="#" method="post">
             <div class="form-group-usuarios">
-              <label class="label-registrar-usuario" for="nombre_Usua">Nombre:</label>
-              <input class="input-registrar-usuario" type="text" id="nombre_Usua" name="nombre" required>
+              <label class="label-registrar-usuario" for="nombre">Nombre:</label>
+              <input class="input-registrar-usuario" type="text" id="nombre" name="nombre" required>
             </div>
             <div class="form-group-usuarios">
-              <label class="label-registrar-usuario" for="apellido_Usua">Apellido:</label>
-              <input class="input-registrar-usuario" type="text" id="apellido_Usua" name="apellido" required>
+              <label class="label-registrar-usuario" for="apellido">Apellido:</label>
+              <input class="input-registrar-usuario" type="text" id="apellido" name="apellido" required>
             </div>
             <div class="form-group-usuarios">
               <label class="label-registrar-usuario" for="correo_Usua">Correo institucional:</label>
@@ -98,8 +98,8 @@ function Usuarios1() {
               <input class="input-registrar-usuario" type="password" id="clave_Usua" name="clave" required>
             </div>
             <div class="form-group-usuarios">
-              <label class="label-registrar-usuario" for="tipo_documento">Tipo de documento:</label>
-              <select class="select-registrar-usuario" id="tipo_documento" name="tipoDocumento" required>
+              <label class="label-registrar-usuario" for="tipoDocumento">Tipo de documento:</label>
+              <select class="select-registrar-usuario" id="tipoDocumento" name="tipoDocumento" required>
                 <option value="">Seleccione una opción</option>
                 <option value="CC">Cédula de Ciudadanía</option>
                 <option value="CE">Cédula de Extranjería</option>
@@ -130,78 +130,67 @@ function Usuarios1() {
             </div>
           </form>
         </div>
-        <div>
       </main>
-    `,
+      `,
       showConfirmButton: true,
       confirmButtonText: "Guardar usuario",
       showCancelButton: true,
       cancelButtonText: "Cancelar",
-      focusConfirm: false,
       preConfirm: async () => {
         // Obtener los valores del formulario
-        const nombre = document.getElementById("nombre_Usua").value.trim();
-        const apellido = document.getElementById("apellido_Usua").value.trim();
+        const nombre = document.getElementById("nombre").value.trim();
+        const apellido = document.getElementById("apellido").value.trim();
         const correo = document.getElementById("correo_Usua").value.trim();
         const clave = document.getElementById("clave_Usua").value.trim();
-        const tipoDocumento = document
-          .getElementById("tipo_documento")
-          .value.trim();
+        const tipoDocumento = document.getElementById("tipoDocumento").value.trim();
         const documento = document.getElementById("documento_1").value.trim();
         const genero = document.getElementById("genero").value.trim();
         const rol = document.getElementById("id_Rol1FK").value.trim();
-
+  
         // Validación de campos
-        const rolesValidos = [1, 2, 3]; // Define los roles válidos según tu base de datos
-
+        const rolesValidos = [1, 2, 3];
+  
         if (
-          !nombre ||
-          !apellido ||
-          !correo ||
-          !clave ||
-          !tipoDocumento ||
-          tipoDocumento === "" ||
-          !documento ||
-          !genero ||
-          genero === "" ||
-          !rol ||
-          rol === "" ||
-          !rolesValidos.includes(parseInt(rol, 10))
+          !nombre || !apellido || !correo || !clave || 
+          !tipoDocumento || !documento || !genero || 
+          !rol || !rolesValidos.includes(parseInt(rol, 10))
         ) {
-          Swal.showValidationMessage(
-            `Por favor completa todos los campos correctamente`
-          );
-        } else {
-          const nuevoUsuario = {
-            nombre: nombre,
-            apellido: apellido,
-            correo: correo,
-            clave: clave,
-            tipoDocumento: tipoDocumento,
-            documento: documento,
-            genero: genero,
-            rol: rol,
-          };
-
-          try {
-            console.log("Datos enviados:", nuevoUsuario); // Verificar los datos antes de enviarlos
-            const response = await registrarUsuario(nuevoUsuario); // Enviar usuario a la API
-            Swal.fire({
-              icon: "success",
-              title: "Usuario registrado",
-              text: `El usuario ${nombre} ha sido registrado exitosamente.`,
-            });
-          } catch (error) {
-            Swal.fire({
-              icon: "error",
-              title: "Error",
-              text: `Hubo un problema al registrar el usuario: ${error.message}`,
-            });
-          }
+          Swal.showValidationMessage(`Por favor completa todos los campos correctamente.`);
+          return; // Salir si hay un error
+        }
+  
+        const nuevoUsuario = {
+          nombre,
+          apellido,
+          correo,
+          clave,
+          tipoDocumento,
+          documento,
+          genero,
+          rol,
+        };
+  
+        try {
+          console.log("Datos enviados:", nuevoUsuario); // Verificar los datos antes de enviarlos
+          const response = await registerUsuario(nuevoUsuario); // Enviar usuario a la API
+          Swal.fire({
+            icon: "success",
+            title: "Usuario registrado",
+            text: `El usuario ${nombre} ha sido registrado exitosamente.`,
+          });
+        } catch (error) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: `Hubo un problema al registrar el usuario: ${error.message}`,
+          });
         }
       },
     });
   };
+  
+  
+  
 
   const handleSearch = async (event) => {
     event.preventDefault(); // Prevenir el comportamiento predeterminado del formulario

@@ -355,38 +355,27 @@ export const getProgramacionesPorFichaYCoordinacion = async (ficha, coordinacion
 };
 
 
-// Función para registrar usuario
-export const registrarUsuario = async (nuevoUsuario) => {
+// Función para registrar un nuevo usuario
+export const registerUsuario = async (usuarioData) => {
   try {
-    console.log("Datos enviados a la API:", nuevoUsuario); // Verifica los datos antes de enviarlos
     const response = await fetch(`${API_BASE_URL}/usuario`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        correo: nuevoUsuario.correo,
-        clave: nuevoUsuario.clave,
-        rol: nuevoUsuario.rol,
-        nombre: nuevoUsuario.nombre,
-        apellido: nuevoUsuario.apellido,
-        tipoDocumento: nuevoUsuario.tipoDocumento,
-        documento: nuevoUsuario.documento,
-        genero: nuevoUsuario.genero,
-      }),
+      body: JSON.stringify(usuarioData),
     });
-
-    const data = await response.json(); // Solo lee el cuerpo una vez
-    console.log('Respuesta del servidor:', data);
-    
     if (!response.ok) {
-      throw new Error(data.message || 'Error en la respuesta de la API al registrar el usuario');
+      // Manejar errores de respuesta
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Error al registrar usuario');
     }
 
-    return data; // Retorna los datos ya leídos
+    const data = await response.json();
+    return data; // Retorna la respuesta exitosa
   } catch (error) {
-    console.error(`Error al registrar el usuario: ${error.message}`);
-    throw error;
+    console.error('Error en registerUsuario:', error.message);
+    throw error; // Vuelve a lanzar el error para manejarlo más arriba si es necesario
   }
 };
 

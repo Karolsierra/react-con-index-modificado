@@ -64,7 +64,7 @@ function ProfileAdmin() {
                 type="text"
                 id="apellido"
                 name="apellido"
-                value={perfil.apellido_Usua || '' || perfil.apellido_Admin || '' || perfil.apellido_Instruc  || '' || perfil.apellido_Capac}
+                value={perfil.apellido_Usua || '' || perfil.apellido_Admin || '' || perfil.apellido_Instruc  || '' || perfil.apellidos_Capac}
                 readOnly
               />
             </div>

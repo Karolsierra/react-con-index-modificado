@@ -10,8 +10,47 @@ function Login1() {
   const [error, setError] = useState("");
   const [mostrarContraseña, setMostrarContraseña] = useState(false); // Estado para mostrar/ocultar contraseña
 
+  // Expresión regular para validar un correo institucional específico
+  const validarCorreo = (correo) => {
+    // Verifica que el correo tenga el formato correcto y dominios aceptados (soy.sena.edu.co, misena.edu.co, sena.edu.co)
+    const regex = /^[^\s@]+@(soy.sena.edu.co|misena.edu.co|sena.edu.co)$/; 
+    if (!regex.test(correo)) return false; // Si el correo no pasa la validación, retorna false
+
+    // Cuenta los puntos en la parte del dominio (después del @)
+    const parteDominio = correo.split("@")[1]; // Separa la parte después del "@" (el dominio)
+    const puntos = (parteDominio.match(/./g)  || []).length; // Cuenta los puntos en el dominio
+
+    // Verifica que haya al menos dos puntos en el dominio (relevante para dominios tipo soy.sena.edu.co)
+    return parteDominio.includes("sena.edu.co") || puntos >= 2;
+  };
+
+    // Función para validar el formulario antes de enviarlo
+    const validarFormulario = () => {
+      // Verifica que el correo sea válido
+      if (!validarCorreo(correo)) {
+        setError("Correo institucional inválido."); // Muestra un mensaje de error si el correo no es válido
+      return false;
+    }
+
+    // Verifica que la contraseña tenga al menos 8 caracteres
+    if (contraseña.length < 8) {
+      setError("La contraseña debe tener al menos 8 caracteres.");
+      return false;
+    }
+
+    // Si todo es válido, limpia cualquier error y devuelve true
+    setError("");
+    return true;
+    };
+
   const handleSubmit = async (event) => {
+
     event.preventDefault(); // Evita la recarga de la página
+    
+    // Llama a la función de validación del formulario
+    if (!validarFormulario()) {
+      return; // Si la validación falla, detiene la ejecución
+    }
 
     try {
       const data = await login(correo, contraseña); // Llama a la API con los valores del formulario
@@ -26,9 +65,9 @@ function Login1() {
       if (rol === 1) {
         window.location.href = "/perfilAdmin";
       } else if (rol === 2) {
-        window.location.href = "/inicioUsuario";
+        window.location.href = "/profileUsua";
       } else if (rol === 3) {
-        window.location.href = "/inicioAdmin";
+        window.location.href = "/profileUsua";
       } else {
         setError("Rol no reconocido. Contacte con el administrador.");
       }

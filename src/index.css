@@ -21,8 +21,8 @@
   height: 10vh;
   width: 100%;
   border-bottom: 2px solid #5cb85c;
-  position: fixed;
-  z-index: 9999;
+  position:fixed;
+  z-index:0 ;
   padding: 0 1%; /* Padding para asegurar que el contenido no esté pegado a los bordes */
   box-sizing: border-box;
 }
@@ -228,7 +228,7 @@
 .buscador-usuarios {
   max-width: 20%; /* ancho máximo */
   max-height: 65vh;
-  margin-left: 20vh;
+  margin-left: 18vh;
   margin-bottom: 0; 
   padding: 20px;
   float: left;
@@ -270,7 +270,7 @@
 
 
 .campo-usuarios .registrar-usuario {
-  margin-left: -115px;
+  margin-left: -125px;
   margin-top: 7vh;
   display: flex;
   justify-content: center;
@@ -299,6 +299,8 @@
 button[type="submit"]:hover {
   background-color: #3e8e41;
 }
+
+
 
 /* Media queries para pantallas más pequeñas */
 @media (max-width: 1024px) {
@@ -596,6 +598,7 @@ swal.fire title {
   border-radius: 8px;
 }
 
+
 .registrar {
   display: block;
   padding: 0px;
@@ -603,12 +606,16 @@ swal.fire title {
 }
 
 .registrar-container .form-registrar-usuario {
-  display: flex;
   flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
+  gap: 20px; /* Espacio entre las columnas y filas */
 }
 
 .form-group-usuarios {
   margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-group-usuarios .label-registrar-usuario {
@@ -680,9 +687,9 @@ body {
 /* Estilo del título */
 .section-title-profile-admin {
   text-align: center;
-  margin-bottom: 3.5vh;
+  margin-bottom: 2vh;
   font-size: 2.5em;
-  margin-top: 15vh; /* Espaciado superior ajustado */
+  margin-top: 12vh; /* Espaciado superior ajustado */
   color: #2c3e50;
 }
 
@@ -1091,7 +1098,7 @@ body {
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   box-sizing: border-box; /* Asegura que padding no afecte el tamaño total */
-  margin-top: -22%; /* Ajusta el margen superior según sea necesario */
+  margin-top: -35%; /* Ajusta el margen superior según sea necesario */
   margin-left: 50%; /* Centra el contenedor horizontalmente */
   margin-right: auto; /* Centra el contenedor horizontalmente */
   display: flex;
@@ -1618,9 +1625,10 @@ body {
   display: flex;
   align-items: flex-start;
   margin-top: 12vh; /* Aplica el mismo margen superior a ambos elementos */
-  margin-left: 7vh;
+  margin-left: 0vh;
   width: 100%;
 }
+
 /* Estilo para el contenedor de los cuadros de inserción */
 .cuadros-insertar {
   display: flex;
@@ -1664,57 +1672,60 @@ body {
   margin-top: -2%;
 }
 
-/* Estilo para el título */
+/* Estilo para el título de la programación */
 .titulo-programacion {
   font-size: 1.5em;
-  margin-top: 13vh;
-  margin-bottom: 8vh;
-  margin-left: 38px;
+  margin: 15% auto; /* Alinea el título al centro del contenedor */
+  width: 100%;
+  text-align: center;
+  max-width: 800px; /* Limita el ancho del título como el del contenedor */
+  padding: 9px 9px;
+  box-sizing: border-box; /* Incluye el padding en el tamaño total del contenedor */
+  text-align: left; /* Ajusta la alineación del texto dentro del título */
 }
 
-/* Estilo para el buscador de usuarios */
+
+/* Estilo para el contenedor del buscador de usuarios */
 .buscador-programacion {
-  width: 80%; /* ancho máximo */
-  height: 45vh;
-  margin-top: -3vh;
-  margin-left: 6%;
+  display: flex;
+  flex-direction: column; /* Alinea los elementos en columna */
+  width: 80%; /* Ajusta el ancho al 100% del contenedor padre */
+  max-width: 800px; /* Limita el ancho máximo del contenedor */
+  margin: -19px 0 0 0; /* Centra el contenedor horizontalmente */
   padding: 20px;
   background-color: #f9f9f9;
   border: 1px solid #5cb85c;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Evita que los elementos se salgan del contenedor */
 }
 
-/* Estilo para el formulario de búsqueda */
+/* Estilo para los campos del formulario */
 .form-busqueda-programacion {
   margin-bottom: 20px;
+  width: 100%; /* Asegura que los campos ocupen todo el ancho disponible */
 }
 
 .campo-programacion {
-  margin-bottom: 20px; /* add margin bottom to separate fields */
+  margin-bottom: 20px; /* Separa los campos entre sí */
+  width: 100%; /* Asegura que el campo ocupe todo el ancho del contenedor */
+  box-sizing: border-box; /* Incluye el padding en el ancho del campo */
 }
 
-.campo-programacion .label-form-programacion {
+.label-form-programacion {
   display: block;
   margin-bottom: 10px;
+  width: 100%; /* Asegura que el label ocupe todo el ancho disponible */
 }
 
-.input-form-programacion-ficha {
-  width: 98%;
-  height: 35px;
-  border: 1px solid #5cb85c;
-  border-radius: 5px;
-  padding-left: 13px; /* Agrega espacio a la izquierda del texto */
-  box-sizing: border-box; /* Asegura que el padding no afecte el ancho total del elemento */
-}
-
-.campo-programacion .input-form-programacion[type="text"],
-.campo-programacion .select-form-programacion {
-  width: 100%;
+.input-form-programacion-ficha, 
+.select-form-programacion {
+  width: 100%; /* Asegura que los campos ocupen todo el ancho */
   height: 40px;
-  padding: 10px;
   border: 1px solid #5cb85c;
   border-radius: 5px;
+  padding-left: 13px;
+  box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
 }
 
 .registrar-usua {
@@ -1732,8 +1743,11 @@ body {
   transition: background-color 0.3s, color 0.3s; /* Añade una transición suave para el hover */
 }
 
+
+/* Mantiene las propiedades del botón */
+/* Ajuste para el botón dentro del contenedor */
 .buscar-programacion {
-  width: 100%; /* make the button full width */
+  width: 100%; /* Asegura que el botón ocupe todo el ancho disponible */
   font-size: 1rem;
   padding: 10px;
   background-color: #5cb85c;
@@ -1741,8 +1755,7 @@ body {
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  margin-left: 53px;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 button[type="submit"]:hover {
@@ -1809,7 +1822,8 @@ button[type="submit"]:hover {
 
 .info-display {
   display: flex;
-  border: 1px solid #3e8e41;
+  border: 1px solid #5cb85c;
+  background-color: #f9f9f9;
   margin: 2% 5% 1% 1%;
   width: 55%;
   height: 70vh;
@@ -1853,15 +1867,17 @@ button[type="submit"]:hover {
 }
 
 .buton-horario-guardar {
-  background-color: #28a745;
-  border: 1px solid #28a745;
+  background-color: #5CB85C;
+  border: 1px solid #5CB85C;
+  color: #fff;
   border-radius: 8px;
   width: 35vh;
 }
 
 .buton-horario-eliminar {
-  background-color: #dc3545;
-  border: 1px solid #dc3545;
+  background-color: #5CB85C;
+  border: 1px solid #5CB85C;
+  color: #fff;
   border-radius: 8px;
   width: 35vh;
 }
@@ -1871,23 +1887,25 @@ button[type="submit"]:hover {
   justify-content: space-around;
   position: relative;
   margin-top: 53%;
+  margin-right: -30%;
   height: auto;
-  width: auto;
-  border: 1px solid #3e8e41;
+  width: 70%;
+  border: none;
   border: 8px;
-  padding: auto 2%;
-  right: 85%;
+  padding: 12px 20px 12px 20px;
+  right: 90%;
 }
 
 .agregarProgramacion {
-  height: 7vh;
-  width: 115%;
-  border: 1px solid #3e8e41;
+  padding: 0 5% 0 !important;
+  border: none;
+  color: #fff;
+  background-color: #5CB85C;
   border-radius: 8px;
 }
 
 .info-display {
-  border: 1px solid #ddd;
+  border: 1.5px solid #5CB85C;
   padding: 20px;
   border-radius: 5px;
   margin-top: 20px;
@@ -2674,7 +2692,7 @@ body {
       background-color: #fff;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       box-sizing: border-box;
-      margin-top: -22%;
+      margin-top: -24%;
       margin-left: 50%;
       margin-right: auto;
       display: flex;
@@ -2747,52 +2765,3 @@ body {
     text-decoration: none !important;
     color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1)) !important;
   }
-  
-  
-
- /* Archivo de estilos CSS */
-
-/* Estilo para el contenedor del calendario */
-.calendar-container-ptc {
-  width: 100%; /* Ajustar tamaño del calendario */
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilo para el modal */
-.modal-dialog-ptc {
-  max-width: 50%; /* Tamaño más grande para destacar como alerta */
-  margin: 0 auto; /* Centrar el modal horizontalmente */
-}
-
-.modal-content-ptc {
-  border-radius: 10px; /* Coincide con el calendario */
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
-}
-
-/* Botón "Volver" */
-.btn-volver-ptc {
-  background-color: #dc3545; /* Rojo de Bootstrap */
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 15px;
-  cursor: pointer;
-}
-
-.btn-volver-ptc:hover {
-  background-color: #c82333; /* Rojo más oscuro */
-}
-
-/* Personaliza los botones del modal */
-.modal-footer-ptc .btn-primary {
-  background-color: #28a745; /* Verde Bootstrap */
-  border-color: #28a745;
-}
-
-.modal-footer-ptc .btn-primary:hover {
-  background-color: #218838; /* Verde más oscuro */
-}
