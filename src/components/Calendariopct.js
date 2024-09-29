@@ -4,6 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { Modal, Button, Form } from "react-bootstrap";
 import Select from "react-select";
+import Swal from "sweetalert2"; // Para alertas
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   getProgramaciones,
@@ -30,15 +31,17 @@ const Calendario = () => {
     endTime: "",
     taller: null,
     capacitador: null,
-    ficha: null,
+    ficha: [],
     ambiente: "",
     allDay: false,
   });
+
   const [sede] = useState([
     { value: "SEDE 52", label: "SEDE 52" },
     { value: "SEDE 64", label: "SEDE 64" },
     { value: "SEDE FONTIBON", label: "SEDE FONTIBON" },
   ]);
+
   const [talleres, setTalleres] = useState([]);
   const [capacitadores, setCapacitadores] = useState([]);
   const [fichas, setFichas] = useState([]);
@@ -46,31 +49,21 @@ const Calendario = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Llamadas a la API para obtener los datos
         const [talleresData, capacitadoresData, fichasData] = await Promise.all(
           [getTalleres(), getCapacitadores(), getFichas()]
         );
-
-        // Verificamos si los datos se están obteniendo correctamente
-        console.log("Talleres data:", talleresData);
-        console.log("Capacitadores data:", capacitadoresData);
-        console.log("Fichas data:", fichasData);
-
-        // Mapeamos los datos para usarlos en react-select
         setTalleres(
           talleresData.map((taller) => ({
             value: taller.id_Taller,
             label: taller.nombre_Taller,
           }))
         );
-
         setCapacitadores(
           capacitadoresData.map((capacitador) => ({
             value: capacitador.id_Capac,
             label: `${capacitador.nombre_Capac} ${capacitador.apellidos_Capac}`,
           }))
         );
-
         setFichas(
           fichasData.map((ficha) => ({
             value: ficha.numero_Ficha,
@@ -89,24 +82,86 @@ const Calendario = () => {
   const loadEvents = async () => {
     try {
       const programaciones = await getProgramaciones();
-      setEvents(
-        programaciones.map((event) => ({
-          id: event.id,
-          start: event.start,
-          end: event.end,
-          extendedProps: {
-            sede: event.sede,
-            descripcion: event.descripcion,
-            taller: event.taller,
-            capacitador: event.capacitador,
-            ficha: event.ficha,
-            ambiente: event.ambiente,
-          },
-        }))
-      );
+      if (programaciones && typeof programaciones === "object") {
+        const eventosMapeados = Object.values(programaciones).map(
+          (event, index) => ({
+            id: `${event.id_procaptall}`, // Combina numero_FichaFK e índice para generar un id único
+            start: `${event.fecha_procaptall}T${event.horaInicio_procaptall}`,
+            end: `${event.fecha_procaptall}T${event.horaFin_procaptall}`,
+            title: event.descripcion_procaptall,
+            extendedProps: {
+              sede: event.sede_procaptall,
+              ambiente: event.ambiente_procaptall,
+              taller: event.nombre_Taller || "",
+              capacitador: event.p_nombreCapacitador || "",
+              ficha: event.numero_FichaFK ? [event.numero_FichaFK] : [],
+              descripcion: event.descripcion_procaptall || "",
+            },
+          })
+        );
+
+        // Combina los nuevos eventos con los existentes para evitar que se sobrescriban
+        setEvents((prevEvents) => [...prevEvents, ...eventosMapeados]);
+      }
     } catch (error) {
       console.error("Error loading events", error);
     }
+  };
+
+  const validateEvent = () => {
+    const start = new Date(`${newEvent.date}T${newEvent.startTime}`);
+    const end = new Date(`${newEvent.date}T${newEvent.endTime}`);
+
+    if (end <= start) {
+      Swal.fire(
+        "Error",
+        "La hora de inicio no puede ser posterior a la hora de fin.",
+        "error"
+      );
+      return false;
+    }
+
+    const currentEventId = isEditMode ? selectedEvent.id : null;
+
+    const isOccupied = (extendedPropsKey, value) => {
+      return events.some((event) => {
+        const isSameValue = event.extendedProps[extendedPropsKey] === value;
+        const isSameDate = event.start.includes(newEvent.date);
+        const isNotCurrentEvent = event.id !== currentEventId;
+
+        const existingStart = new Date(event.start);
+        const existingEnd = new Date(event.end);
+
+        const isTimeOverlap = start < existingEnd && end > existingStart;
+
+        return isSameValue && isSameDate && isNotCurrentEvent && isTimeOverlap;
+      });
+    };
+
+    if (isOccupied("capacitador", newEvent.capacitador?.value)) {
+      Swal.fire(
+        "Error",
+        "El capacitador ya tiene un taller asignado en este horario.",
+        "error"
+      );
+      return false;
+    }
+
+    if (isOccupied("ambiente", newEvent.ambiente)) {
+      Swal.fire(
+        "Error",
+        "El ambiente ya está ocupado en este horario.",
+        "error"
+      );
+      return false;
+    }
+
+    if (isOccupied("ficha", newEvent.ficha?.value)) {
+      Swal.fire("Error", "La ficha ya está ocupada en este horario.", "error");
+      return false;
+    }
+
+    return true;
   };
 
   const handleDateClick = (info) => {
@@ -119,7 +174,7 @@ const Calendario = () => {
       endTime: "",
       taller: null,
       capacitador: null,
-      ficha: null,
+      ficha: [],
       ambiente: "",
       allDay: false,
     });
@@ -129,35 +184,33 @@ const Calendario = () => {
 
   const handleEventClick = (info) => {
     const eventProps = info.event.extendedProps;
+
     setSelectedEvent(info.event);
+
     setNewEvent({
       id: info.event.id,
-      sede: sede.find((sede) => sede.value === eventProps.sede) || null,
+      sede: sede.find((s) => s.value === eventProps.sede) || null,
       descripcion: eventProps.descripcion || "",
       date: info.event.startStr.split("T")[0] || "",
       startTime: info.event.startStr.split("T")[1] || "",
-      endTime: info.event.endStr ? info.event.endStr.split("T")[1] : "",
-      taller:
-        talleres.find((taller) => taller.value === eventProps.taller) || null,
+      endTime: info.event.endStr.split("T")[1] || "",
+      taller: talleres.find((t) => t.label === eventProps.taller) || null,
       capacitador:
-        capacitadores.find(
-          (capacitador) => capacitador.value === eventProps.capacitador
-        ) || null,
-      ficha: fichas.find((ficha) => ficha.value === eventProps.ficha) || null,
+        capacitadores.find((c) => c.label === eventProps.capacitador) || null,
+      ficha: Array.isArray(eventProps.ficha)
+        ? fichas.filter((f) => eventProps.ficha.includes(f.value))
+        : [],
       ambiente: eventProps.ambiente || "",
       allDay: info.event.allDay || false,
     });
+
     setIsEditMode(true);
     setShowModal(true);
   };
 
   const handleEventSubmit = async () => {
-    if (!newEvent.date || !newEvent.startTime) {
-      alert(
-        "Por favor complete los campos obligatorios: título, fecha y hora de inicio."
-      );
-      return;
-    }
+    // Validación del evento
+    if (!validateEvent()) return;
 
     const start = `${newEvent.date}T${newEvent.startTime}`;
     const end = newEvent.endTime
@@ -165,33 +218,84 @@ const Calendario = () => {
       : null;
 
     const event = {
-      id: newEvent.id || null,
-      start,
-      end,
-      extendedProps: {
-        sede: newEvent.sede ? newEvent.sede.value : "",
-        descripcion: newEvent.descripcion || "",
-        taller: newEvent.taller ? newEvent.taller.value : "",
-        capacitador: newEvent.capacitador ? newEvent.capacitador.value : "",
-        ficha: newEvent.ficha ? newEvent.ficha.value : "",
-        ambiente: newEvent.ambiente || "",
-      },
+      sede_procaptall: newEvent.sede?.value || "",
+      descripcion_procaptall: newEvent.descripcion || "",
+      ambiente_procaptall: newEvent.ambiente || "",
+      fecha_procaptall: newEvent.date,
+      horaInicio_procaptall: newEvent.startTime,
+      horaFin_procaptall: newEvent.endTime,
+      nombreTaller: newEvent.taller?.label || "",
+      nombreCapacitador:
+        capacitadores.find((cap) => cap.value === newEvent.capacitador?.value)
+          ?.label || "",
+      numero_FichaFK: Array.isArray(newEvent.ficha)
+        ? newEvent.ficha.map((f) => f.value).join(", ")
+        : "",
     };
+
+    console.log("Evento a actualizar:", event);
+    console.log("Valor de selectedEvent antes de actualizar:", selectedEvent);
+
+    // Validación de campo número de ficha
+    if (!event.numero_FichaFK) {
+      Swal.fire("Error", "El campo número de ficha es obligatorio.", "error");
+      return;
+    }
 
     try {
       if (isEditMode) {
+        console.log("Modo de edición activado.");
+        if (!selectedEvent || !selectedEvent.id) {
+          throw new Error("ID del evento no disponible para la actualización.");
+        }
+
+        console.log("ID del evento a actualizar:", selectedEvent.id);
         await updateProgramacion(selectedEvent.id, event);
-        setEvents(events.map((e) => (e.id === selectedEvent.id ? event : e)));
+
+        setEvents((prev) =>
+          prev.map((e) =>
+            e.id_procaptall === selectedEvent.id
+              ? { ...e, ...event }
+              : e
+          )
+        );
+        Swal.fire(
+          "Éxito",
+          "El evento ha sido actualizado correctamente.",
+          "success"
+        );
       } else {
         const newEventResponse = await createProgramacion(event);
-        setEvents([...events, { ...event, id: newEventResponse.id }]);
+        const newEventData = {
+          id_procaptall: newEventResponse.id, // Asegúrate de que este ID es el correcto para un nuevo evento
+          start: start,
+          end: end,
+          title: event.descripcion_procaptall,
+          extendedProps: {
+            sede: event.sede_procaptall,
+            ambiente: event.ambiente_procaptall,
+            taller: event.nombreTaller,
+            capacitador: event.nombreCapacitador,
+            ficha: event.numero_FichaFK,
+            descripcion: event.descripcion_procaptall,
+          },
+        };
+
+        setEvents((prev) => [...prev, newEventData]);
+        Swal.fire(
+          "Éxito",
+          "El evento ha sido creado correctamente.",
+          "success"
+        );
       }
 
       setShowModal(false);
     } catch (error) {
-      console.error("Error saving event", error);
-      alert(
-        "Error al crear o actualizar la programación. Verifica los campos y vuelve a intentarlo."
+      console.error("Error al guardar el evento", error);
+      Swal.fire(
+        "Error",
+        `Hubo un error al guardar la programación: ${error.message}`,
+        "error"
       );
     }
   };
@@ -210,11 +314,19 @@ const Calendario = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewEvent({ ...newEvent, [name]: value });
+    setNewEvent((prev) => {
+      const updatedEvent = { ...prev, [name]: value };
+      console.log(updatedEvent); // Verifica el estado
+      return updatedEvent;
+    });
   };
 
   const handleSelectChange = (selectedOption, actionMeta) => {
-    setNewEvent({ ...newEvent, [actionMeta.name]: selectedOption });
+    setNewEvent((prev) => {
+      const updatedEvent = { ...prev, [actionMeta.name]: selectedOption };
+      console.log(updatedEvent); // Verifica el estado
+      return updatedEvent;
+    });
   };
 
   return (
@@ -228,6 +340,9 @@ const Calendario = () => {
           dateClick={handleDateClick}
           eventClick={handleEventClick}
           editable={true}
+          eventContent={(eventInfo) => (
+            <p>{`${eventInfo.event.extendedProps.sede}`}</p>
+          )}
         />
       </div>
 
@@ -257,7 +372,6 @@ const Calendario = () => {
                   />
                 </Form.Group>
               </div>
-
               <div className="col-md-6">
                 <Form.Group controlId="eventAmbiente">
                   <Form.Label>Ambiente</Form.Label>
@@ -271,7 +385,6 @@ const Calendario = () => {
                 </Form.Group>
               </div>
             </div>
-
             <div className="row">
               <div className="col-md-12">
                 <Form.Group controlId="eventDescripcion">
@@ -287,7 +400,6 @@ const Calendario = () => {
                 </Form.Group>
               </div>
             </div>
-
             <div className="row">
               <div className="col-md-6">
                 <Form.Group controlId="eventDate">
@@ -304,24 +416,25 @@ const Calendario = () => {
                 <Form.Group controlId="eventStartTime">
                   <Form.Label>Hora de Inicio</Form.Label>
                   <Form.Control
-                    type="time"
+                    type="text"
                     name="startTime"
                     value={newEvent.startTime}
                     onChange={handleInputChange}
+                    placeholder="HH:mm:ss"
                   />
                 </Form.Group>
               </div>
             </div>
-
             <div className="row">
               <div className="col-md-6">
                 <Form.Group controlId="eventEndTime">
                   <Form.Label>Hora de Fin</Form.Label>
                   <Form.Control
-                    type="time"
+                    type="text"
                     name="endTime"
                     value={newEvent.endTime}
                     onChange={handleInputChange}
+                    placeholder="HH:mm:ss"
                   />
                 </Form.Group>
               </div>
@@ -338,7 +451,6 @@ const Calendario = () => {
                 </Form.Group>
               </div>
             </div>
-
             <div className="row">
               <div className="col-md-6">
                 <Form.Group controlId="eventCapacitador">

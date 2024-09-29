@@ -15,9 +15,26 @@
   color: #fff;
 }
 
+/* Reduce padding and margin for events */
 .fc-event {
-  color: white;
-  border: none;
+  padding: 0px; /* Adjust padding to your liking */
+  margin: 0; /* Remove margin */
+  line-height: 1; /* Reduce line height to minimize space */
+  font-size: 0.8em;
+}
+
+/* Target the day grid events specifically */
+.fc-daygrid-event {
+  padding: 15px 0px 0px 0px; /* Adjust padding */
+  margin: 10px; /* Ensure no extra margin */
+  height: 20px; /* Fit content height */
+  width: auto;
+}
+
+/* Adjust text size and reduce spacing */
+.fc-daygrid-event > div {
+  display: flex; /* Use flex to better control layout */
+  align-items: center; /* Center the content vertically */
 }
 
 /* Estilo para el contenedor del modal */
