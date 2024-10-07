@@ -420,19 +420,25 @@ export const registerUsuario = async (usuarioData) => {
   }
 };
 
-export const registrarUsuariosDesdeExcel = async (formData) => {
-  const response = await fetch(`${API_BASE_URL}/usuarios/cargar-masivo`, {
-    method: "POST",
-    body: formData,
-    headers: {
-      "Content-Type": "multipart/form-data", // Esto normalmente no se necesita ya que se lo maneja automáticamente
-    },
-  });
+export const uploadUsuariosExcel = async (file) => {
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
 
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.message || "Error al registrar los usuarios");
+    const response = await fetch(`${API_BASE_URL}/usuarios/upload`, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error en la solicitud: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log("Usuarios cargados desde Excel:", data);
+    return data;
+  } catch (error) {
+    console.error(`Error al cargar usuarios desde Excel: ${error.message}`);
+    throw error;
   }
-
-  return response.json();
 };

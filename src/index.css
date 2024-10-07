@@ -220,7 +220,7 @@
 .titulo-usuarios {
   font-size: 1.5em;
   margin-top: 15vh;
-  margin-bottom: 8vh;
+  margin-bottom: 3vh;
   margin-left: 16vh;
 }
 
@@ -228,49 +228,56 @@
 .buscador-usuarios {
   max-width: 20%; /* ancho máximo */
   max-height: 65vh;
-  margin-left: 18vh;
-  margin-bottom: 0; 
+  margin-left: 16vh;
+  margin-bottom: 0;
   padding: 20px;
   float: left;
+  text-align: left;
   background-color: #fff;
   border: 1px solid #5cb85c;
-  border-radius: 10px; 
+  border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  
+  /* Centramos el contenido */
+  display: flex;
+
+
 }
 
 /* Estilo para el formulario de búsqueda */
 .form-busqueda-usuarios {
+  width: 100%; /* Asegurar que el formulario ocupe todo el ancho disponible */
+  display: flex;
+  text-align: left;
+  flex-direction: column;
   margin-bottom: 20px;
 }
 
 .campo-usuarios {
-  margin-bottom: 20px; /* add margin bottom to separate fields */
+  width: 100%; /* Ocupa todo el ancho disponible */
+  margin-bottom: 20px;
 }
 
+/* Centramos la etiqueta y el campo de texto */
 .campo-usuarios .label-form-registrar-usuarios {
   display: block;
   margin-bottom: 10px;
+  text-align: left; /* Etiquetas centradas */
 }
 
-.input-form-registrar-usuarios[type="text"] {
-  padding: 10px;
-  border: 1px solid #5cb85c;
-  border-radius: 5px;
-}
-
-.campo-usuarios .input-form-registrar-usuarios[type="text"],
+.input-form-registrar-usuarios[type="text"],
 .campo-usuarios .select-form-registrar-usuarios {
-  width: 100%;
+  width: 100%; /* Ajuste de tamaño para el campo */
   height: 40px;
   padding: 10px;
   border: 1px solid #5cb85c;
   border-radius: 5px;
+  text-align: left; /* Centramos el texto dentro del input */
 }
 
-
-
+/* Centramos los botones */
 .campo-usuarios .registrar-usuario {
-  margin-left: -125px;
+  margin-left: -100px;
   margin-top: 7vh;
   display: flex;
   justify-content: center;
@@ -285,22 +292,53 @@
 }
 
 .campo-usuarios .buscar-usuario {
-  margin-left: 80px;
-  max-width: 115%; /* make the button full width */
   font-size: 1rem;
   padding: 10px;
+  margin-left: 60px ;
   background-color: #5cb85c;
   color: #fff;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+/* Centramos el link */
+.link-cargar-usuarios {
+  color: #5cb85c;
+  font-weight: bold;
+  margin-left:26px;
+  align-items: center;
+  text-decoration: underline;
+  text-align: center;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.link-cargar-usuarios:hover {
+  color: #3e8e41;
 }
 
 button[type="submit"]:hover {
   background-color: #3e8e41;
 }
 
+/* Estilo para el input de archivo */
+#excelFileInput {
+  text-align: center;
+  border: 2px solid #5cb85c;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #333;
+  transition: border-color 0.3s ease;
+}
 
+#excelFileInput:focus {
+  border-color: #3e8e41;
+}
 
 /* Media queries para pantallas más pequeñas */
 @media (max-width: 1024px) {
