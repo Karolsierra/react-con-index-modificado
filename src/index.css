@@ -22,7 +22,7 @@
   width: 100%;
   border-bottom: 2px solid #5cb85c;
   position:fixed;
-  z-index:0 ;
+  z-index: 5 ;
   padding: 0 1%; /* Padding para asegurar que el contenido no esté pegado a los bordes */
   box-sizing: border-box;
 }
@@ -1614,7 +1614,6 @@ body {
 /*PROGRAMACION DE ADMINISTRADOR*/
 .dropdown-container {
   margin-bottom: 20px;
-  border: 1px solid #4caf50;
   border-radius: 5px;
 }
 .dropdown {
@@ -1622,10 +1621,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid #ddd;
+  border: 1px solid #5cb85c;
   padding: 10px;
   border-radius: 4px;
   background: #f9f9f9;
+  position: relative;
+  bottom: 100px;
 }
 .dropdown-content {
   display: none;
@@ -1633,6 +1634,8 @@ body {
   border-radius: 4px;
   padding: 10px;
   background: #fff;
+  position: relative;
+  bottom: 100px;
 }
 .dropdown-content button {
   display: block;
@@ -1655,8 +1658,34 @@ body {
 }
 
 .icono-cuadro {
-  height: 20px;
-  width: 20px;
+  max-height: 20%;
+  max-width: 20%;
+  margin-right: 2px;
+}
+
+.text-programacion-agregar {
+  margin-bottom: 30%;
+  left: 40vh;
+}
+
+.input-form-programacion {
+  width: 98%;
+  height: 35px;
+  border: 1px solid #5cb85c;
+  border-radius: 5px;
+  padding-left: 13px;
+  box-sizing: border-box;
+}
+
+.agregar-horario {
+  width: 100%;
+  height: 33px;
+  font-size: 0.9rem;
+  background-color: #5cb85c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 .contenedor-principal {
@@ -1674,7 +1703,7 @@ body {
   height: 30%;
   width: 15%;
   margin: 6vh;
-  margin-top: 19vh;
+  margin-top: 20vh;
 }
 
 .cuadro-programacion {
@@ -1685,6 +1714,7 @@ body {
   padding: 1rem;
   background-color: #f9f9f9;
   position: relative;
+  bottom: 110px;
 }
 
 .cuadro-label {
@@ -1754,6 +1784,7 @@ body {
   display: block;
   margin-bottom: 10px;
   width: 100%; /* Asegura que el label ocupe todo el ancho disponible */
+  text-align: left;
 }
 
 .input-form-programacion-ficha, 
