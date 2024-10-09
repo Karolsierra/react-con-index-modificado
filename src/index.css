@@ -21,9 +21,10 @@
   height: 10vh;
   width: 100%;
   border-bottom: 2px solid #5cb85c;
-  position:fixed;
-  z-index: 5 ;
-  padding: 0 1%; /* Padding para asegurar que el contenido no esté pegado a los bordes */
+  position: fixed;
+  z-index: 5;
+  padding: 0 1%;
+  /* Padding para asegurar que el contenido no esté pegado a los bordes */
   box-sizing: border-box;
 }
 
@@ -39,7 +40,8 @@
   flex-grow: 1;
   justify-content: center;
   align-items: center;
-  margin: 0; /* Elimina el margen derecho para centrar el nav */
+  margin: 0;
+  /* Elimina el margen derecho para centrar el nav */
 }
 
 .nav-admin .ul-navadmin {
@@ -65,14 +67,16 @@
   color: #000000;
   transition: color 0.3s, background-color 0.3s;
   border-radius: 50px;
-  position: relative; /* Necesario para la línea inferior */
+  position: relative;
+  /* Necesario para la línea inferior */
 }
 
 /* Estilo de los iconos dentro de los enlaces */
 .nav-admin .ul-navadmin .li-navadmin .enlaceIcono-navadmin .icono {
   width: 3vh;
   height: 3vh;
-  margin: 0 5px; /* Ajusta el espacio entre iconos */
+  margin: 0 5px;
+  /* Ajusta el espacio entre iconos */
 }
 
 /* Efecto de hover en los enlaces */
@@ -96,7 +100,8 @@
   color: #000000;
   transition: color 0.3s, background-color 0.3s;
   border-radius: 50px;
-  position: relative; /* Necesario para la línea inferior */
+  position: relative;
+  /* Necesario para la línea inferior */
 }
 
 /* Efecto de hover en el enlace de cerrar sesión */
@@ -130,15 +135,18 @@
 /* Media queries para pantallas más pequeñas */
 @media (max-width: 1024px) {
   .logo-navadmin-bienestar {
-    width: 12%; /* Ajusta el tamaño del logo para pantallas más pequeñas */
+    width: 12%;
+    /* Ajusta el tamaño del logo para pantallas más pequeñas */
   }
 
   .nav-admin .ul-navadmin .li-navadmin {
-    margin: 0 10px; /* Reduce el margen entre los elementos de la barra de navegación */
+    margin: 0 10px;
+    /* Reduce el margen entre los elementos de la barra de navegación */
   }
 
   .nav-admin .ul-navadmin .li-navadmin .enlaceIcono-navadmin {
-    padding: 4px 8px; /* Reduce el padding de los enlaces */
+    padding: 4px 8px;
+    /* Reduce el padding de los enlaces */
   }
 }
 
@@ -146,52 +154,67 @@
 @media (max-width: 600px) {
   .header-nav-admin {
     flex-direction: column;
-    height: auto; /* Permite que el header se ajuste al contenido */
-    padding: 10px 5%; /* Añade padding para el contenido del header */
+    height: auto;
+    /* Permite que el header se ajuste al contenido */
+    padding: 10px 5%;
+    /* Añade padding para el contenido del header */
   }
 
   .logo-navadmin-bienestar {
-    width: 30%; /* Aumenta el tamaño del logo en pantallas móviles */
-    max-height: none; /* Permite que el logo se ajuste libremente en pantallas pequeñas */
+    width: 30%;
+    /* Aumenta el tamaño del logo en pantallas móviles */
+    max-height: none;
+    /* Permite que el logo se ajuste libremente en pantallas pequeñas */
   }
 
   .nav-admin {
-    margin: 0; /* Elimina el margen para que el contenido del nav esté centrado */
+    margin: 0;
+    /* Elimina el margen para que el contenido del nav esté centrado */
   }
 
   .nav-admin .ul-navadmin {
-    flex-direction: column; /* Coloca los elementos de navegación en columna */
+    flex-direction: column;
+    /* Coloca los elementos de navegación en columna */
   }
 
   .nav-admin .ul-navadmin .li-navadmin {
-    margin: 10px 0; /* Ajusta el margen entre los elementos en columna */
+    margin: 10px 0;
+    /* Ajusta el margen entre los elementos en columna */
   }
 
   .nav-admin .ul-navadmin .li-navadmin .enlaceIcono-navadmin {
-    padding: 6px 12px; /* Aumenta el padding de los enlaces para pantallas móviles */
+    padding: 6px 12px;
+    /* Aumenta el padding de los enlaces para pantallas móviles */
   }
 
   .cerrarSesion .cerrarSesion-navadmin {
-    padding: 6px 14px; /* Aumenta el padding del botón de cerrar sesión */
+    padding: 6px 14px;
+    /* Aumenta el padding del botón de cerrar sesión */
   }
 }
 
 /* Media queries para pantallas más grandes */
 @media (min-width: 1440px) {
   .header-nav-admin {
-    height: 10vh; /* Ajusta la altura del encabezado para pantallas grandes */
-    padding: 0% 0%; /* Aumenta el padding para centrar mejor el contenido */
+    height: 10vh;
+    /* Ajusta la altura del encabezado para pantallas grandes */
+    padding: 0% 0%;
+    /* Aumenta el padding para centrar mejor el contenido */
   }
 
   .logo-navadmin-bienestar {
     display: block;
-    margin: 0; /* Centra el logo en su contenedor */
-    width: 17%; /* Reduce el tamaño del logo para pantallas muy grandes */
+    margin: 0;
+    /* Centra el logo en su contenedor */
+    width: 17%;
+    /* Reduce el tamaño del logo para pantallas muy grandes */
   }
 
   .nav-admin {
-    flex-grow: 0; /* Desactiva el crecimiento del flex para mantener el nav centrado */
-    width: auto; /* Ajusta el ancho del nav para que no se expanda demasiado */
+    flex-grow: 0;
+    /* Desactiva el crecimiento del flex para mantener el nav centrado */
+    width: auto;
+    /* Ajusta el ancho del nav para que no se expanda demasiado */
   }
 
   .nav-admin .ul-navadmin {
@@ -199,18 +222,23 @@
   }
 
   .nav-admin .ul-navadmin .li-navadmin {
-    margin: 0 20px; /* Aumenta el margen entre los elementos de la barra de navegación */
+    margin: 0 20px;
+    /* Aumenta el margen entre los elementos de la barra de navegación */
   }
 
   .nav-admin .ul-navadmin .li-navadmin .enlaceIcono-navadmin {
-    padding: 6px 14px; /* Aumenta el padding de los enlaces para mejor visibilidad */
-    font-size: 16px; /* Aumenta el tamaño de la fuente de los enlaces */
+    padding: 6px 14px;
+    /* Aumenta el padding de los enlaces para mejor visibilidad */
+    font-size: 16px;
+    /* Aumenta el tamaño de la fuente de los enlaces */
   }
 
   .cerrarSesion .cerrarSesion-navadmin {
     margin-left: 0%;
-    padding: 6px 16px; /* Aumenta el padding del botón de cerrar sesión */
-    font-size: 16px; /* Aumenta el tamaño de la fuente del botón de cerrar sesión */
+    padding: 6px 16px;
+    /* Aumenta el padding del botón de cerrar sesión */
+    font-size: 16px;
+    /* Aumenta el tamaño de la fuente del botón de cerrar sesión */
   }
 }
 
@@ -226,7 +254,8 @@
 
 /* Estilo para el buscador de usuarios */
 .buscador-usuarios {
-  max-width: 20%; /* ancho máximo */
+  max-width: 20%;
+  /* ancho máximo */
   max-height: 65vh;
   margin-left: 16vh;
   margin-bottom: 0;
@@ -237,7 +266,7 @@
   border: 1px solid #5cb85c;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  
+
   /* Centramos el contenido */
   display: flex;
 
@@ -246,7 +275,8 @@
 
 /* Estilo para el formulario de búsqueda */
 .form-busqueda-usuarios {
-  width: 100%; /* Asegurar que el formulario ocupe todo el ancho disponible */
+  width: 100%;
+  /* Asegurar que el formulario ocupe todo el ancho disponible */
   display: flex;
   text-align: left;
   flex-direction: column;
@@ -254,7 +284,8 @@
 }
 
 .campo-usuarios {
-  width: 100%; /* Ocupa todo el ancho disponible */
+  width: 100%;
+  /* Ocupa todo el ancho disponible */
   margin-bottom: 20px;
 }
 
@@ -262,17 +293,20 @@
 .campo-usuarios .label-form-registrar-usuarios {
   display: block;
   margin-bottom: 10px;
-  text-align: left; /* Etiquetas centradas */
+  text-align: left;
+  /* Etiquetas centradas */
 }
 
 .input-form-registrar-usuarios[type="text"],
 .campo-usuarios .select-form-registrar-usuarios {
-  width: 100%; /* Ajuste de tamaño para el campo */
+  width: 100%;
+  /* Ajuste de tamaño para el campo */
   height: 40px;
   padding: 10px;
   border: 1px solid #5cb85c;
   border-radius: 5px;
-  text-align: left; /* Centramos el texto dentro del input */
+  text-align: left;
+  /* Centramos el texto dentro del input */
 }
 
 /* Centramos los botones */
@@ -282,19 +316,23 @@
   display: flex;
   justify-content: center;
   padding: 10px;
-  background-color: #fff; /* Fondo blanco para un estilo limpio y sencillo */
-  color: #fff; /* Texto en el mismo verde que el borde del formulario */
+  background-color: #fff;
+  /* Fondo blanco para un estilo limpio y sencillo */
+  color: #fff;
+  /* Texto en el mismo verde que el borde del formulario */
   border: 2px solid #5CB85C;
-  background-color: #5CB85C; /* Borde en verde para que coincida con el resto del formulario */
+  background-color: #5CB85C;
+  /* Borde en verde para que coincida con el resto del formulario */
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s; /* Añade una transición suave para el hover */
+  transition: background-color 0.3s, color 0.3s;
+  /* Añade una transición suave para el hover */
 }
 
 .campo-usuarios .buscar-usuario {
   font-size: 1rem;
   padding: 10px;
-  margin-left: 60px ;
+  margin-left: 60px;
   background-color: #5cb85c;
   color: #fff;
   border: none;
@@ -308,7 +346,7 @@
 .link-cargar-usuarios {
   color: #5cb85c;
   font-weight: bold;
-  margin-left:26px;
+  margin-left: 26px;
   align-items: center;
   text-decoration: underline;
   text-align: center;
@@ -343,59 +381,119 @@ button[type="submit"]:hover {
 /* Media queries para pantallas más pequeñas */
 @media (max-width: 1024px) {
   .buscador-usuarios {
-    max-width: 40%; /* Ajusta el ancho máximo para pantallas más pequeñas */
-    margin-left: 10%; /* Ajusta el margen izquierdo */
+    max-width: 40%;
+    /* Ajusta el ancho máximo para pantallas más pequeñas */
+    margin-left: 10%;
+    /* Ajusta el margen izquierdo */
   }
 
   .titulo-usuarios {
-    font-size: 1.2em; /* Reduce el tamaño del título */
-    margin-left: 10%; /* Ajusta el margen izquierdo */
+    font-size: 1.2em;
+    /* Reduce el tamaño del título */
+    margin-left: 10%;
+    /* Ajusta el margen izquierdo */
   }
 
   .registrar-usuario {
-    font-size: 0.9rem; /* Reduce el tamaño de la fuente */
-    margin-left: 2vh; /* Ajusta el margen izquierdo */
+    font-size: 0.9rem;
+    /* Reduce el tamaño de la fuente */
+    margin-left: 2vh;
+    /* Ajusta el margen izquierdo */
   }
 }
 
 /* Media queries para pantallas muy pequeñas (móviles) */
 @media (max-width: 600px) {
   .buscador-usuarios {
-    max-width: 80%; /* Ajusta el ancho máximo para móviles */
-    margin-left: 0; /* Elimina el margen izquierdo */
-    padding: 15px; /* Reduce el padding */
+    max-width: 80%;
+    /* Ajusta el ancho máximo para móviles */
+    margin-left: 0;
+    /* Elimina el margen izquierdo */
+    padding: 15px;
+    /* Reduce el padding */
   }
 
   .titulo-usuarios {
-    font-size: 1em; /* Reduce aún más el tamaño del título */
-    margin-left: 0; /* Elimina el margen izquierdo */
+    font-size: 1em;
+    /* Reduce aún más el tamaño del título */
+    margin-left: 0;
+    /* Elimina el margen izquierdo */
   }
 
   .registrar-usuario {
-    font-size: 0.8rem; /* Reduce el tamaño de la fuente */
-    margin-left: 0; /* Elimina el margen izquierdo */
+    font-size: 0.8rem;
+    /* Reduce el tamaño de la fuente */
+    margin-left: 0;
+    /* Elimina el margen izquierdo */
   }
 
   .buscar-usuario {
-    font-size: 0.9rem; /* Ajusta el tamaño de la fuente */
+    font-size: 0.9rem;
+    /* Ajusta el tamaño de la fuente */
   }
 }
 
 /* Media queries para pantallas más grandes */
 @media (min-width: 1600px) {
   .buscador-usuarios {
-    max-width: 15%; /* Ajusta el ancho máximo para pantallas grandes */
-    margin-left: 25vh; /* Ajusta el margen izquierdo */
+    max-width: 35%;
+    /* Ajusta el ancho máximo para pantallas grandes */
+    margin-left: 20vh;
+    /* Ajusta el margen izquierdo */
   }
 
   .titulo-usuarios {
-    font-size: 2em; /* Aumenta el tamaño del título */
-    margin-left: 20vh; /* Ajusta el margen izquierdo */
+    font-size: 2em;
+    /* Aumenta el tamaño del título */
+    margin-left: 16vh;
+    /* Ajusta el margen izquierdo */
   }
 
   .registrar-usuario {
-    font-size: 1.2rem; /* Aumenta el tamaño de la fuente */
-    margin-left: 0.5vh; /* Ajusta el margen izquierdo */
+    font-size: 1.2rem;
+    /* Aumenta el tamaño de la fuente */
+    margin-left: 0.5vh;
+    /* Ajusta el margen izquierdo */
+  }
+
+  .campo-usuarios .registrar-usuario {
+    margin-left: -95px;
+    margin-top: 7vh;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+    background-color: #fff;
+    color: #fff;
+    border: 2px solid #5CB85C;
+    background-color: #5CB85C;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .campo-usuarios .buscar-usuario {
+    font-size: 1rem;
+    padding: 10px;
+    margin-left: 67px;
+    background-color: #5cb85c;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+  }
+
+  .link-cargar-usuarios {
+    color: #5cb85c;
+    font-weight: bold;
+    margin-left: 37px;
+    align-items: center;
+    text-decoration: underline;
+    text-align: center;
+    cursor: pointer;
+    transition: color 0.3s ease;
   }
 }
 
@@ -408,14 +506,15 @@ button[type="submit"]:hover {
   max-width: 50%;
   max-height: 67vh;
   display: block;
-  margin: 0 0 0 70vh; /* adjust margin top and left to position the container */
+  margin: 0 0 0 70vh;
+  /* adjust margin top and left to position the container */
   padding: 20px;
   background-color: #fff;
   border: 1px solid #5cb85c;
-  border-radius: 10px; 
+  border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
- 
+
 .informacion-container-usuarios .form-group {
   margin-bottom: 1.2%;
   display: flex;
@@ -449,7 +548,8 @@ button[type="submit"]:hover {
   padding: 10px;
   border: 1px solid #5cb85c;
   border-radius: 5px;
-  box-sizing: border-box; /* Ensures padding and border are included in the element's total width */
+  box-sizing: border-box;
+  /* Ensures padding and border are included in the element's total width */
 }
 
 .form-group:nth-of-type(1) .column-form-usuarios,
@@ -489,7 +589,7 @@ button[type="submit"]:hover {
 /*registrar*/
 .swal2-html-container {
   z-index: 1;
-  display: flex ;
+  display: flex;
   margin: 0;
   padding: 1em 1.6em 0.3em;
   overflow: auto;
@@ -497,12 +597,12 @@ button[type="submit"]:hover {
   font-size: 1.125em;
   font-weight: normal;
   line-height: normal;
-  text-align:initial;
+  text-align: initial;
   word-wrap: break-word;
   word-break: break-word;
   overflow: hidden;
-} 
- 
+}
+
 swal.fire {
   padding: 0px;
   margin: 0px;
@@ -517,7 +617,7 @@ swal.fire title {
   border-radius: 8px;
   border: 2px solid #5cb85c;
   padding: 0 0 0.03em;
-  display:flex;
+  display: flex;
 }
 
 .swal2-validation-message {
@@ -551,7 +651,8 @@ swal.fire title {
   display: flex;
   font-weight: 600;
   color: #333;
-  text-align: left; /* Alinea el texto del label a la izquierda */
+  text-align: left;
+  /* Alinea el texto del label a la izquierda */
 }
 
 .form-group-usuarios .input-registrar-usuario,
@@ -585,7 +686,7 @@ swal.fire title {
 /*alert gestion usua*/
 .swal2-html-container {
   z-index: 1;
-  display: flex ;
+  display: flex;
   margin: 0;
   padding: 1em 1.6em 0.3em;
   overflow: auto;
@@ -593,10 +694,10 @@ swal.fire title {
   font-size: 1.125em;
   font-weight: normal;
   line-height: normal;
-  text-align:initial;
+  text-align: initial;
   word-wrap: break-word;
   word-break: break-word;
-} 
+}
 
 .swal2-confirm.swal2-styled {
   background-color: #5CB85C;
@@ -620,7 +721,7 @@ swal.fire title {
   border-radius: 8px;
   border: 2px solid #5cb85c;
   padding: 0 0 0.03em;
-  display:flex;
+  display: flex;
 }
 
 .swal2-validation-message {
@@ -646,8 +747,10 @@ swal.fire title {
 .registrar-container .form-registrar-usuario {
   flex-direction: column;
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
-  gap: 20px; /* Espacio entre las columnas y filas */
+  grid-template-columns: 1fr 1fr;
+  /* Dos columnas de igual tamaño */
+  gap: 20px;
+  /* Espacio entre las columnas y filas */
 }
 
 .form-group-usuarios {
@@ -660,7 +763,8 @@ swal.fire title {
   display: flex;
   font-weight: 600;
   color: #333;
-  text-align: left; /* Alinea el texto del label a la izquierda */
+  text-align: left;
+  /* Alinea el texto del label a la izquierda */
 }
 
 .form-group-usuarios .input-registrar-usuario,
@@ -686,26 +790,30 @@ swal.fire title {
 /* Estilo del contenedor principal */
 /* Contenedor principal del perfil de administrador */
 html {
-  height: 100% !important; /* Asegura que el html y el body ocupen el 100% del alto */
+  height: 100% !important;
+  /* Asegura que el html y el body ocupen el 100% del alto */
   width: 100% !important;
-  margin: 0 !important; /* Elimina el margen predeterminado */
+  margin: 0 !important;
+  /* Elimina el margen predeterminado */
 }
 
 html,
 body {
-  background-color: #5cb85c15 !important ;
+  background-color: #5cb85c15 !important;
 }
 
 html,
 body {
-  height: 100% !important; /* Asegura que el html y el body ocupen el 100% del alto */
+  height: 100% !important;
+  /* Asegura que el html y el body ocupen el 100% del alto */
   width: 100% !important;
-  margin: 0 !important; /* Elimina el margen predeterminado */
+  margin: 0 !important;
+  /* Elimina el margen predeterminado */
 }
 
 html,
 body {
-  background-color: #5cb85c15 !important ;
+  background-color: #5cb85c15 !important;
 }
 
 .container-profile-admin {
@@ -719,7 +827,8 @@ body {
   border: 1px solid #5cb85c;
   border-radius: 8px;
   background-color: #fff;
-  box-sizing: border-box; /* Asegura que padding y border estén incluidos en el tamaño total */
+  box-sizing: border-box;
+  /* Asegura que padding y border estén incluidos en el tamaño total */
 }
 
 /* Estilo del título */
@@ -727,21 +836,25 @@ body {
   text-align: center;
   margin-bottom: 2vh;
   font-size: 2.5em;
-  margin-top: 12vh; /* Espaciado superior ajustado */
+  margin-top: 12vh;
+  /* Espaciado superior ajustado */
   color: #2c3e50;
 }
 
 /* Estilo del formulario de perfil de administrador */
 .profile-admin-container .form-perfil-admin {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(412px, 1fr)
-  ); /* Columnas adaptables según el ancho disponible */
-  gap: 35px; /* Espacio entre columnas */
-  width: 100%; /* Asegura que ocupe el 100% del contenedor */
-  max-width: 900px; /* Asegura que no se desborde en pantallas grandes */
-  padding: 20px; /* Espacio interior ajustado */
+  grid-template-columns: repeat(auto-fit,
+      minmax(412px, 1fr));
+  /* Columnas adaptables según el ancho disponible */
+  gap: 35px;
+  /* Espacio entre columnas */
+  width: 100%;
+  /* Asegura que ocupe el 100% del contenedor */
+  max-width: 900px;
+  /* Asegura que no se desborde en pantallas grandes */
+  padding: 20px;
+  /* Espacio interior ajustado */
   text-align: left;
   box-sizing: border-box;
 }
@@ -757,7 +870,8 @@ body {
 .label-form-profile-admin {
   font-weight: 600;
   color: #333;
-  margin-bottom: 8px; /* Mayor espacio debajo de la etiqueta */
+  margin-bottom: 8px;
+  /* Mayor espacio debajo de la etiqueta */
   text-align: left;
 }
 
@@ -768,24 +882,30 @@ body {
   font-size: 16px;
   border: 1px solid #5cb85c;
   border-radius: 8px;
-  width: 100%; /* Asegura que los inputs ocupen todo el ancho disponible */
-  box-sizing: border-box; /* Incluye padding y border en el tamaño total */
-  transition: border-color 0.3s ease; /* Transición suave para el enfoque */
+  width: 100%;
+  /* Asegura que los inputs ocupen todo el ancho disponible */
+  box-sizing: border-box;
+  /* Incluye padding y border en el tamaño total */
+  transition: border-color 0.3s ease;
+  /* Transición suave para el enfoque */
 }
 
 /* Ajustes específicos para la apariencia de los campos */
 .input-form-profile-admin {
-  max-width: 100%; /* Se adapta al tamaño del contenedor */
+  max-width: 100%;
+  /* Se adapta al tamaño del contenedor */
 }
 
 .select-form-profile-admin {
-  max-width: 100%; /* Se adapta al tamaño del contenedor */
+  max-width: 100%;
+  /* Se adapta al tamaño del contenedor */
 }
 
 /* Estilo de enfoque en los campos de entrada */
 .input-form-profile-admin:focus,
 .select-form-profile-admin:focus {
-  border-color: #5cb85c; /* Color de borde al hacer foco */
+  border-color: #5cb85c;
+  /* Color de borde al hacer foco */
   outline: none;
 }
 
@@ -889,7 +1009,8 @@ body {
   display: flex;
   justify-content: center;
   margin-top: 10px;
-  margin-left: 17%; /* Espacio entre el último input y el botón */
+  margin-left: 17%;
+  /* Espacio entre el último input y el botón */
 }
 
 .show-report-button {
@@ -937,7 +1058,8 @@ body {
   .date-inputs .input-fecha,
   .selector-informe,
   .numero-informe {
-    width: 100%; /* Asegura que los inputs y select ocupen el ancho completo en pantallas más pequeñas */
+    width: 100%;
+    /* Asegura que los inputs y select ocupen el ancho completo en pantallas más pequeñas */
   }
 }
 
@@ -950,7 +1072,8 @@ body {
 
   .container {
     width: 100%;
-    padding: 1rem; /* Ajusta el padding para pantallas pequeñas */
+    padding: 1rem;
+    /* Ajusta el padding para pantallas pequeñas */
   }
 
   .date-button,
@@ -978,38 +1101,47 @@ body {
   }
 
   .btn-eliminar {
-    font-size: 12px; /* Reduce el tamaño de la fuente del botón de eliminar en pantallas pequeñas */
-    padding: 4px 8px; /* Reduce el padding del botón de eliminar */
+    font-size: 12px;
+    /* Reduce el tamaño de la fuente del botón de eliminar en pantallas pequeñas */
+    padding: 4px 8px;
+    /* Reduce el padding del botón de eliminar */
   }
 }
 
 /* Media queries para pantallas más grandes (monitores de escritorio de alta resolución) */
 @media (min-width: 1600px) {
   .main-content {
-    margin-left: 250px; /* Mantén el margen izquierdo fijo para pantallas muy grandes */
+    margin-left: 250px;
+    /* Mantén el margen izquierdo fijo para pantallas muy grandes */
     width: calc(100% - 250px);
   }
 
   .container {
-    width: 70%; /* Reduce el ancho del contenedor para aprovechar mejor el espacio */
-    padding: 2rem; /* Aumenta el padding interno para una mejor presentación */
+    width: 70%;
+    /* Reduce el ancho del contenedor para aprovechar mejor el espacio */
+    padding: 2rem;
+    /* Aumenta el padding interno para una mejor presentación */
   }
 
   .date-button,
   .select-button,
   .number-button {
-    padding: 1rem; /* Aumenta el padding para mejor visibilidad en pantallas grandes */
+    padding: 1rem;
+    /* Aumenta el padding para mejor visibilidad en pantallas grandes */
   }
 
   .date-inputs .input-fecha,
   .selector-informe,
   .numero-informe {
-    width: auto; /* Permite que los inputs y select se ajusten automáticamente a su contenido */
+    width: auto;
+    /* Permite que los inputs y select se ajusten automáticamente a su contenido */
   }
 
   .btn-eliminar {
-    font-size: 16px; /* Aumenta el tamaño de la fuente del botón de eliminar para mejor visibilidad */
-    padding: 8px 16px; /* Aumenta el padding del botón de eliminar */
+    font-size: 16px;
+    /* Aumenta el tamaño de la fuente del botón de eliminar para mejor visibilidad */
+    padding: 8px 16px;
+    /* Aumenta el padding del botón de eliminar */
   }
 }
 
@@ -1024,6 +1156,7 @@ body {
 .swal2-html-container {
   font-size: 18px;
 }
+
 .report-container {
   text-align: center;
   font-family: "Work Sans Regular", sans-serif;
@@ -1052,6 +1185,7 @@ body {
   padding-top: 10px;
   margin-top: 20px;
 }
+
 .download-button {
   background-color: #5cb85c;
   border: none;
@@ -1064,6 +1198,7 @@ body {
   text-decoration: none;
   margin-top: 10px;
 }
+
 .download-button .fa-fa-download {
   border: none;
 }
@@ -1075,17 +1210,19 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   height: 350px;
-  padding: 20px; /* Ajusta el padding según el diseño */
+  padding: 20px;
+  /* Ajusta el padding según el diseño */
   border: 2px solid #5cb85c;
   border-radius: 8px;
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box; /* Asegura que padding no afecte el tamaño total */
-  margin-top: 30vh; /* Ajusta el margen superior según sea necesario */
+  box-sizing: border-box;
+  /* Asegura que padding no afecte el tamaño total */
+  margin-top: 30vh;
+  /* Ajusta el margen superior según sea necesario */
   margin-left: 65%;
-  transform: translateX(
-    -160%
-  ); /* Ajusta el margen izquierdo según sea necesario */
+  transform: translateX(-160%);
+  /* Ajusta el margen izquierdo según sea necesario */
 }
 
 .form-container-calendariousua .Titulo-calendariousua {
@@ -1097,7 +1234,8 @@ body {
 .form-container-calendariousua .label-ficha-calendariousua {
   display: block;
   margin-bottom: 0.5rem;
-  text-align: left; /* Mantiene los labels alineados a la izquierda */
+  text-align: left;
+  /* Mantiene los labels alineados a la izquierda */
 }
 
 .form-container-calendariousua .input-calendariousua {
@@ -1127,26 +1265,35 @@ body {
 .calendar-container {
   overflow-y: auto;
   overflow-x: hidden;
-  width: 100%; /* Usa todo el ancho disponible */
-  max-width: 600px; /* Ajusta el ancho máximo según tu diseño */
-  height: 315px; /* Ajusta la altura según sea necesario */
+  width: 100%;
+  /* Usa todo el ancho disponible */
+  max-width: 600px;
+  /* Ajusta el ancho máximo según tu diseño */
+  height: 315px;
+  /* Ajusta la altura según sea necesario */
   padding: 10px;
   border: 2px solid #5cb85c;
   border-radius: 8px;
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box; /* Asegura que padding no afecte el tamaño total */
-  margin-top: -35%; /* Ajusta el margen superior según sea necesario */
-  margin-left: 50%; /* Centra el contenedor horizontalmente */
-  margin-right: auto; /* Centra el contenedor horizontalmente */
+  box-sizing: border-box;
+  /* Asegura que padding no afecte el tamaño total */
+  margin-top: -35%;
+  /* Ajusta el margen superior según sea necesario */
+  margin-left: 50%;
+  /* Centra el contenedor horizontalmente */
+  margin-right: auto;
+  /* Centra el contenedor horizontalmente */
   display: flex;
   flex-direction: column;
 }
 
 .calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr); /* 7 columnas (días de la semana) */
-  gap: 2px; /* Espacio entre los días */
+  grid-template-columns: repeat(7, 1fr);
+  /* 7 columnas (días de la semana) */
+  gap: 2px;
+  /* Espacio entre los días */
 }
 
 /* Estilos para los días del calendario */
@@ -1161,8 +1308,10 @@ body {
 
 /* Estilo para los días con eventos */
 .calendar-day.event {
-  background-color: #e0ffe0; /* Color de fondo para los días con eventos */
-  border-color: #5cb85c; /* Borde más oscuro para días con eventos */
+  background-color: #e0ffe0;
+  /* Color de fondo para los días con eventos */
+  border-color: #5cb85c;
+  /* Borde más oscuro para días con eventos */
   color: #333;
 }
 
@@ -1171,7 +1320,47 @@ body {
 }
 
 .calendar-day.event:hover {
-  background-color: #d4edda; /* Color de fondo más claro para días con eventos */
+  background-color: #d4edda;
+  /* Color de fondo más claro para días con eventos */
+}
+
+@media (min-width: 1440px) {
+
+  /* Estilos para el contenedor del calendario */
+  .calendar-container {
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    /* Usa todo el ancho disponible */
+    max-width: 700px;
+    /* Ajusta el ancho máximo según tu diseño */
+    height: 482px;
+    /* Ajusta la altura según sea necesario */
+    padding: 10px;
+    border: 2px solid #5cb85c;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    /* Asegura que padding no afecte el tamaño total */
+    margin-top: -22%;
+    /* Ajusta el margen superior según sea necesario */
+    margin-left: 50%;
+    /* Centra el contenedor horizontalmente */
+    margin-right: auto;
+    /* Centra el contenedor horizontalmente */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .calendar-day {
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #f9f9f9;
+  }
 }
 
 
@@ -1190,14 +1379,16 @@ body {
   border: 1px solid #5cb85c;
   border-radius: 8px;
   background-color: #fff;
-  box-sizing: border-box; /* Asegura que padding y border estén incluidos en el tamaño total */
+  box-sizing: border-box;
+  /* Asegura que padding y border estén incluidos en el tamaño total */
 }
 
 /* Estilo del título */
 .section-title-profile-usua {
   text-align: center;
   font-size: 2.3em;
-  margin-top: 10vh; /* Asegúrate de que el título tenga suficiente espacio arriba */
+  margin-top: 10vh;
+  /* Asegúrate de que el título tenga suficiente espacio arriba */
   color: #2c3e50;
 }
 
@@ -1213,14 +1404,16 @@ body {
   border: 1px solid #5cb85c;
   border-radius: 8px;
   background-color: #fff;
-  box-sizing: border-box; /* Asegura que padding y border estén incluidos en el tamaño total */
+  box-sizing: border-box;
+  /* Asegura que padding y border estén incluidos en el tamaño total */
 }
 
 /* Estilo del título */
 .section-title-profile-usua {
   text-align: center;
   font-size: 2.5em;
-  margin-top: 13vh; /* Ajusta el espaciado superior */
+  margin-top: 13vh;
+  /* Ajusta el espaciado superior */
   margin-bottom: 1%;
   color: #2c3e50;
 }
@@ -1228,11 +1421,16 @@ body {
 /* Estilo del formulario */
 .profile-usua-container .form-perfil-usua {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(412px, 1fr)); /* Columnas adaptables según el ancho disponible */
-  gap: 35px; /* Espacio entre columnas */
-  width: 100%; /* Asegura que ocupe el 100% del contenedor */
-  max-width: 900px; /* Asegura que no se desborde en pantallas grandes */
-  padding: 20px; /* Espacio interior ajustado */
+  grid-template-columns: repeat(auto-fit, minmax(412px, 1fr));
+  /* Columnas adaptables según el ancho disponible */
+  gap: 35px;
+  /* Espacio entre columnas */
+  width: 100%;
+  /* Asegura que ocupe el 100% del contenedor */
+  max-width: 900px;
+  /* Asegura que no se desborde en pantallas grandes */
+  padding: 20px;
+  /* Espacio interior ajustado */
   text-align: left;
   box-sizing: border-box;
 }
@@ -1248,7 +1446,8 @@ body {
 .form-group-perfilUsuario .label-form-profile-usua {
   font-weight: 600;
   color: #333;
-  margin-bottom: 8px; /* Mayor espacio debajo de la etiqueta */
+  margin-bottom: 8px;
+  /* Mayor espacio debajo de la etiqueta */
   text-align: left;
 }
 
@@ -1259,24 +1458,30 @@ body {
   font-size: 16px;
   border: 1px solid #5cb85c;
   border-radius: 8px;
-  width: 100%; /* Asegura que los inputs ocupen todo el ancho disponible */
-  box-sizing: border-box; /* Incluye padding y border en el tamaño total */
-  transition: border-color 0.3s ease; /* Transición suave para el enfoque */
+  width: 100%;
+  /* Asegura que los inputs ocupen todo el ancho disponible */
+  box-sizing: border-box;
+  /* Incluye padding y border en el tamaño total */
+  transition: border-color 0.3s ease;
+  /* Transición suave para el enfoque */
 }
 
 .input-form-profile-usua {
-  max-width: 100%; /* Se adapta al tamaño del contenedor */
+  max-width: 100%;
+  /* Se adapta al tamaño del contenedor */
 }
 
 .select-form-profile-usua {
-  max-width: 100%; /* Se adapta al tamaño del contenedor */
+  max-width: 100%;
+  /* Se adapta al tamaño del contenedor */
 }
 
 /* Estilo para el enfoque en campos de entrada */
 .input-form-profile-usua:focus,
 .select-form-profile:focus {
-    border-color: #5cb85c; /* Color de borde al hacer foco */
-    outline: none;
+  border-color: #5cb85c;
+  /* Color de borde al hacer foco */
+  outline: none;
 }
 
 
@@ -1285,19 +1490,21 @@ body {
 /* General container to center the cards */
 .card-container {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(300px, 1fr)
-  ); /* Columnas automáticas con un mínimo de 300px y un máximo de 1 fracción del espacio disponible */
-  gap: 5px; /* Espacio entre tarjetas */
-  margin: 2px; /* Margen opcional alrededor del contenedor */
+  grid-template-columns: repeat(auto-fit,
+      minmax(300px, 1fr));
+  /* Columnas automáticas con un mínimo de 300px y un máximo de 1 fracción del espacio disponible */
+  gap: 5px;
+  /* Espacio entre tarjetas */
+  margin: 2px;
+  /* Margen opcional alrededor del contenedor */
   margin-top: 10%;
 }
 
 .main-content {
   padding: 20px;
   display: flex;
-  justify-content: center; /* Centers the cards horizontally */
+  justify-content: center;
+  /* Centers the cards horizontally */
 }
 
 /* Container that holds the cards */
@@ -1305,31 +1512,42 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  width: 100%; /* Ensures the container occupies the full width */
-  margin: 0 auto; /* Centers the card container */
-  box-sizing: border-box; /* Includes padding in the total width */
+  width: 100%;
+  /* Ensures the container occupies the full width */
+  margin: 0 auto;
+  /* Centers the card container */
+  box-sizing: border-box;
+  /* Includes padding in the total width */
 }
 
 /* Card design */
 .card {
   background: white;
-  border: 2px solid #5cb85c; /* Green border */
+  border: 2px solid #5cb85c;
+  /* Green border */
   border-radius: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 350px; /* Fixed width for the card */
+  width: 350px;
+  /* Fixed width for the card */
   box-sizing: border-box;
-  margin-top: 10%; /* Adjust vertical spacing */
-  transform: translateX(100px); /* Move cards to the right */
-  height: 400px; /* Set a fixed height for the card */
-  overflow-y: hidden; /* Enables vertical scrolling */
+  margin-top: 10%;
+  /* Adjust vertical spacing */
+  transform: translateX(100px);
+  /* Move cards to the right */
+  height: 400px;
+  /* Set a fixed height for the card */
+  overflow-y: hidden;
+  /* Enables vertical scrolling */
 }
 
 /* Title styling */
 .card .tittle {
   margin-top: 0;
-  font-size: 1.5rem; /* Increases the title font size */
-  text-align: center; /* Centers the title text */
+  font-size: 1.5rem;
+  /* Increases the title font size */
+  text-align: center;
+  /* Centers the title text */
 }
 
 /* Information box inside the card */
@@ -1340,31 +1558,37 @@ body {
   border: 2px solid #acacac;
   border-radius: 8px;
   text-align: center;
-  position: relative; /* For positioning the overlay text */
-  overflow: hidden; /* Ensure overlay doesn't extend beyond the box */
-  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for background and shadow */
+  position: relative;
+  /* For positioning the overlay text */
+  overflow: hidden;
+  /* Ensure overlay doesn't extend beyond the box */
+  transition: background-color 0.3s, box-shadow 0.3s;
+  /* Smooth transition for background and shadow */
 }
 
 /* Hover effect for cuadro-info */
 .cuadro-info:hover {
-  background-color: rgba(
-    0,
-    100,
-    0,
-    0.95
-  ); /* Darker green with high opacity on hover */
-  color: transparent; /* Hide text color */
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Darker shadow on hover */
+  background-color: rgba(0,
+      100,
+      0,
+      0.95);
+  /* Darker green with high opacity on hover */
+  color: transparent;
+  /* Hide text color */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  /* Darker shadow on hover */
 }
 
 /* Text styling inside cuadro-info */
 .text-info {
-  list-style: none; /* Removes bullet points */
+  list-style: none;
+  /* Removes bullet points */
   padding: 0;
   margin: 15px 0 0 0;
   font-size: 1rem;
   color: #555;
-  text-align: center; /* Center the text */
+  text-align: center;
+  /* Center the text */
 }
 
 /* Individual list item styling */
@@ -1372,38 +1596,52 @@ body {
   margin-bottom: 10px;
   line-height: 1.5;
   font-weight: 300;
-  text-align: center; /* Center the text */
+  text-align: center;
+  /* Center the text */
 }
 
 /* Removes bullet points before each list item */
 .text-info .li-card-usua:before {
-  content: ""; /* Removes the bullet point */
-  margin-right: 0; /* No space for bullet point */
+  content: "";
+  /* Removes the bullet point */
+  margin-right: 0;
+  /* No space for bullet point */
 }
 
 /* Overlay text for "Más información" */
 .cuadro-info::before {
-  content: "Más información"; /* Text to display */
+  content: "Más información";
+  /* Text to display */
   position: absolute;
-  top: 50%; /* Center vertically */
-  left: 50%; /* Center horizontally */
-  transform: translate(-50%, -50%); /* Center the text */
-  color: rgb(5, 5, 5); /* Text color */
-  font-size: 1.5rem; /* Adjust font size */
-  text-align: center; /* Center the text inside the box */
-  opacity: 0; /* Initially hidden */
-  transition: opacity 0.3s; /* Fade-in effect */
+  top: 50%;
+  /* Center vertically */
+  left: 50%;
+  /* Center horizontally */
+  transform: translate(-50%, -50%);
+  /* Center the text */
+  color: rgb(5, 5, 5);
+  /* Text color */
+  font-size: 1.5rem;
+  /* Adjust font size */
+  text-align: center;
+  /* Center the text inside the box */
+  opacity: 0;
+  /* Initially hidden */
+  transition: opacity 0.3s;
+  /* Fade-in effect */
 }
 
 /* Show the overlay text on hover */
 .cuadro-info:hover::before {
-  opacity: 1; /* Show text on hover */
+  opacity: 1;
+  /* Show text on hover */
 }
 
 /* NAVBAR USUARIO */
 /* Estilo del cuerpo */
 .body-navbarUsuario {
-  background-color: #218838; /* Igual que el fondo de nav-admin */
+  background-color: #218838;
+  /* Igual que el fondo de nav-admin */
   margin: 0;
   padding: 0;
   font-family: "Work Sans Regular", sans-serif;
@@ -1417,11 +1655,13 @@ body {
   align-items: center;
   background-color: #f4f4f4;
   top: 0;
-  height: 10vh; /* Ajustado al mismo tamaño que nav-admin */
+  height: 10vh;
+  /* Ajustado al mismo tamaño que nav-admin */
   width: 100%;
   border-bottom: 2px solid #5cb85c;
   position: fixed;
-  z-index: 9999; /* Igual que nav-admin */
+  z-index: 9999;
+  /* Igual que nav-admin */
   padding: 0 1%;
   box-sizing: border-box;
 }
@@ -1445,7 +1685,8 @@ body {
 .navbar-usuario .ul-nav-usuario {
   list-style: none;
   padding: 0;
-  margin: 0 75px 0 0; /* Igual que nav-admin */
+  margin: 0 75px 0 0;
+  /* Igual que nav-admin */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1530,15 +1771,18 @@ body {
 /* Media queries para pantallas más pequeñas */
 @media (max-width: 1024px) {
   .logoBienestar-navUsuario {
-    width: 12%; /* Ajusta el tamaño del logo para pantallas más pequeñas */
+    width: 12%;
+    /* Ajusta el tamaño del logo para pantallas más pequeñas */
   }
 
   .navbar-usuario .ul-nav-usuario .li-navUsuario {
-    margin: 0 10px; /* Reduce el margen entre los elementos de la barra de navegación */
+    margin: 0 10px;
+    /* Reduce el margen entre los elementos de la barra de navegación */
   }
 
   .navbar-usuario .ul-nav-usuario .li-navUsuario .enlace-navUsuario {
-    padding: 4px 8px; /* Reduce el padding de los enlaces */
+    padding: 4px 8px;
+    /* Reduce el padding de los enlaces */
   }
 }
 
@@ -1546,50 +1790,64 @@ body {
 @media (max-width: 600px) {
   .header-navusuario {
     flex-direction: column;
-    height: auto; /* Permite que el header se ajuste al contenido */
-    padding: 10px 5%; /* Añade padding para el contenido del header */
+    height: auto;
+    /* Permite que el header se ajuste al contenido */
+    padding: 10px 5%;
+    /* Añade padding para el contenido del header */
   }
 
   .logoBienestar-navUsuario {
-    width: 30%; /* Aumenta el tamaño del logo en pantallas móviles */
-    max-height: none; /* Permite que el logo se ajuste libremente en pantallas pequeñas */
+    width: 30%;
+    /* Aumenta el tamaño del logo en pantallas móviles */
+    max-height: none;
+    /* Permite que el logo se ajuste libremente en pantallas pequeñas */
   }
 
   .navbar-usuario {
-    margin: 0; /* Elimina el margen para que el contenido del nav esté centrado */
+    margin: 0;
+    /* Elimina el margen para que el contenido del nav esté centrado */
   }
 
   .navbar-usuario .ul-nav-usuario {
-    flex-direction: column; /* Coloca los elementos de navegación en columna */
+    flex-direction: column;
+    /* Coloca los elementos de navegación en columna */
   }
 
   .navbar-usuario .ul-nav-usuario .li-navUsuario {
-    margin: 10px 0; /* Ajusta el margen entre los elementos en columna */
+    margin: 10px 0;
+    /* Ajusta el margen entre los elementos en columna */
   }
 
   .navbar-usuario .ul-nav-usuario .li-navUsuario .enlace-navUsuario {
-    padding: 6px 12px; /* Aumenta el padding de los enlaces para pantallas móviles */
+    padding: 6px 12px;
+    /* Aumenta el padding de los enlaces para pantallas móviles */
   }
 
   .cerrarSesion .enlaceCerrar-navUsuario {
-    padding: 6px 14px; /* Aumenta el padding del botón de cerrar sesión */
+    padding: 6px 14px;
+    /* Aumenta el padding del botón de cerrar sesión */
   }
 }
 
 /* Media queries para pantallas más grandes */
 @media (min-width: 1440px) {
   .header-navusuario {
-    height: 10vh; /* Ajusta la altura del encabezado para pantallas grandes */
-    padding: 0 0.5%; /* Aumenta el padding para centrar mejor el contenido */
+    height: 10vh;
+    /* Ajusta la altura del encabezado para pantallas grandes */
+    padding: 0 0.5%;
+    /* Aumenta el padding para centrar mejor el contenido */
   }
 
   .logoBienestar-navUsuario {
-    width: 17%; /* Ajusta el tamaño del logo para pantallas muy grandes */
+    width: 17%;
+    /* Ajusta el tamaño del logo para pantallas muy grandes */
   }
 
   .navbar-usuario {
-    flex-grow: 0; /* Desactiva el crecimiento del flex para mantener el nav centrado */
-    width: auto; /* Ajusta el ancho del nav para que no se expanda demasiado */
+    flex-grow: 0;
+    /* Desactiva el crecimiento del flex para mantener el nav centrado */
+    width: auto;
+    /* Ajusta el ancho del nav para que no se expanda demasiado */
   }
 
   .navbar-usuario .ul-nav-usuario {
@@ -1597,17 +1855,22 @@ body {
   }
 
   .navbar-usuario .ul-nav-usuario .li-navUsuario {
-    margin: 0 20px; /* Aumenta el margen entre los elementos de la barra de navegación */
+    margin: 0 20px;
+    /* Aumenta el margen entre los elementos de la barra de navegación */
   }
 
   .navbar-usuario .ul-nav-usuario .li-navUsuario .enlace-navUsuario {
-    padding: 6px 14px; /* Aumenta el padding de los enlaces para mejor visibilidad */
-    font-size: 16px; /* Aumenta el tamaño de la fuente de los enlaces */
+    padding: 6px 14px;
+    /* Aumenta el padding de los enlaces para mejor visibilidad */
+    font-size: 16px;
+    /* Aumenta el tamaño de la fuente de los enlaces */
   }
 
   .cerrarSesion .enlaceCerrar-navUsuario {
-    padding: 6px 16px; /* Aumenta el padding del botón de cerrar sesión */
-    font-size: 16px; /* Aumenta el tamaño de la fuente del botón de cerrar sesión */
+    padding: 6px 16px;
+    /* Aumenta el padding del botón de cerrar sesión */
+    font-size: 16px;
+    /* Aumenta el tamaño de la fuente del botón de cerrar sesión */
   }
 }
 
@@ -1616,6 +1879,7 @@ body {
   margin-bottom: 20px;
   border-radius: 5px;
 }
+
 .dropdown {
   cursor: pointer;
   display: flex;
@@ -1628,6 +1892,7 @@ body {
   position: relative;
   bottom: 100px;
 }
+
 .dropdown-content {
   display: none;
   border: 1px solid #ddd;
@@ -1637,6 +1902,7 @@ body {
   position: relative;
   bottom: 100px;
 }
+
 .dropdown-content button {
   display: block;
   margin: 5px 0;
@@ -1653,6 +1919,7 @@ body {
   font-size: 18px;
   transition: transform 0.3s ease;
 }
+
 .arrow.down {
   transform: rotate(180deg);
 }
@@ -1691,7 +1958,8 @@ body {
 .contenedor-principal {
   display: flex;
   align-items: flex-start;
-  margin-top: 12vh; /* Aplica el mismo margen superior a ambos elementos */
+  margin-top: 12vh;
+  /* Aplica el mismo margen superior a ambos elementos */
   margin-left: 0vh;
   width: 100%;
 }
@@ -1723,7 +1991,8 @@ body {
 }
 
 .icono-cuadro {
-  width: 50px; /* Ajusta el tamaño del icono */
+  width: 50px;
+  /* Ajusta el tamaño del icono */
   height: auto;
   margin-bottom: 0.5rem;
 }
@@ -1743,58 +2012,74 @@ body {
 /* Estilo para el título de la programación */
 .titulo-programacion {
   font-size: 1.5em;
-  margin: 15% auto; /* Alinea el título al centro del contenedor */
+  margin: 15% auto;
+  /* Alinea el título al centro del contenedor */
   width: 100%;
   text-align: center;
-  max-width: 800px; /* Limita el ancho del título como el del contenedor */
+  max-width: 800px;
+  /* Limita el ancho del título como el del contenedor */
   padding: 9px 9px;
-  box-sizing: border-box; /* Incluye el padding en el tamaño total del contenedor */
-  text-align: left; /* Ajusta la alineación del texto dentro del título */
+  box-sizing: border-box;
+  /* Incluye el padding en el tamaño total del contenedor */
+  text-align: left;
+  /* Ajusta la alineación del texto dentro del título */
 }
 
 
 /* Estilo para el contenedor del buscador de usuarios */
 .buscador-programacion {
   display: flex;
-  flex-direction: column; /* Alinea los elementos en columna */
-  width: 80%; /* Ajusta el ancho al 100% del contenedor padre */
-  max-width: 800px; /* Limita el ancho máximo del contenedor */
-  margin: -19px 0 0 0; /* Centra el contenedor horizontalmente */
+  flex-direction: column;
+  /* Alinea los elementos en columna */
+  width: 80%;
+  /* Ajusta el ancho al 100% del contenedor padre */
+  max-width: 800px;
+  /* Limita el ancho máximo del contenedor */
+  margin: -19px 0 0 0;
+  /* Centra el contenedor horizontalmente */
   padding: 20px;
   background-color: #f9f9f9;
   border: 1px solid #5cb85c;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* Evita que los elementos se salgan del contenedor */
+  overflow: hidden;
+  /* Evita que los elementos se salgan del contenedor */
 }
 
 /* Estilo para los campos del formulario */
 .form-busqueda-programacion {
   margin-bottom: 20px;
-  width: 100%; /* Asegura que los campos ocupen todo el ancho disponible */
+  width: 100%;
+  /* Asegura que los campos ocupen todo el ancho disponible */
 }
 
 .campo-programacion {
-  margin-bottom: 20px; /* Separa los campos entre sí */
-  width: 100%; /* Asegura que el campo ocupe todo el ancho del contenedor */
-  box-sizing: border-box; /* Incluye el padding en el ancho del campo */
+  margin-bottom: 20px;
+  /* Separa los campos entre sí */
+  width: 100%;
+  /* Asegura que el campo ocupe todo el ancho del contenedor */
+  box-sizing: border-box;
+  /* Incluye el padding en el ancho del campo */
 }
 
 .label-form-programacion {
   display: block;
   margin-bottom: 10px;
-  width: 100%; /* Asegura que el label ocupe todo el ancho disponible */
+  width: 100%;
+  /* Asegura que el label ocupe todo el ancho disponible */
   text-align: left;
 }
 
-.input-form-programacion-ficha, 
+.input-form-programacion-ficha,
 .select-form-programacion {
-  width: 100%; /* Asegura que los campos ocupen todo el ancho */
+  width: 100%;
+  /* Asegura que los campos ocupen todo el ancho */
   height: 40px;
   border: 1px solid #5cb85c;
   border-radius: 5px;
   padding-left: 13px;
-  box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+  box-sizing: border-box;
+  /* Asegura que el padding no afecte el ancho total */
 }
 
 .registrar-usua {
@@ -1804,19 +2089,24 @@ body {
   margin-bottom: 10vh;
   position: static;
   padding: 10px;
-  background-color: #fff; /* Fondo blanco para un estilo limpio y sencillo */
-  color: #5cb85c; /* Texto en el mismo verde que el borde del formulario */
-  border: 2px solid #fff; /* Borde en verde para que coincida con el resto del formulario */
+  background-color: #fff;
+  /* Fondo blanco para un estilo limpio y sencillo */
+  color: #5cb85c;
+  /* Texto en el mismo verde que el borde del formulario */
+  border: 2px solid #fff;
+  /* Borde en verde para que coincida con el resto del formulario */
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s; /* Añade una transición suave para el hover */
+  transition: background-color 0.3s, color 0.3s;
+  /* Añade una transición suave para el hover */
 }
 
 
 /* Mantiene las propiedades del botón */
 /* Ajuste para el botón dentro del contenedor */
 .buscar-programacion {
-  width: 100%; /* Asegura que el botón ocupe todo el ancho disponible */
+  width: 100%;
+  /* Asegura que el botón ocupe todo el ancho disponible */
   font-size: 1rem;
   padding: 10px;
   background-color: #5cb85c;
@@ -1996,60 +2286,112 @@ button[type="submit"]:hover {
 /* Media queries para pantallas más pequeñas */
 @media (max-width: 1024px) {
   .buscador-programacion {
-    max-width: 40%; /* Ajusta el ancho máximo para pantallas más pequeñas */
-    margin-left: 10%; /* Ajusta el margen izquierdo */
+    max-width: 80%;
+    /* Ajusta el ancho máximo para pantallas más pequeñas */
+    margin-left: 10%;
+    /* Ajusta el margen izquierdo */
   }
 
   .titulo-programacion {
-    font-size: 1.2em; /* Reduce el tamaño del título */
-    margin-left: 10%; /* Ajusta el margen izquierdo */
+    font-size: 1.2em;
+    /* Reduce el tamaño del título */
+    margin-left: 10%;
+    /* Ajusta el margen izquierdo */
   }
 
   .registrar-usua {
-    font-size: 0.9rem; /* Reduce el tamaño de la fuente */
-    margin-left: 2vh; /* Ajusta el margen izquierdo */
+    font-size: 0.9rem;
+    /* Reduce el tamaño de la fuente */
+    margin-left: 2vh;
+    /* Ajusta el margen izquierdo */
   }
 }
 
 /* Media queries para pantallas muy pequeñas (móviles) */
 @media (max-width: 600px) {
   .buscador-programacion {
-    max-width: 80%; /* Ajusta el ancho máximo para móviles */
-    margin-left: 0; /* Elimina el margen izquierdo */
-    padding: 15px; /* Reduce el padding */
+    max-width: 80%;
+    /* Ajusta el ancho máximo para móviles */
+    margin-left: 0;
+    /* Elimina el margen izquierdo */
+    padding: 15px;
+    /* Reduce el padding */
   }
 
   .titulo-programacion {
-    font-size: 1em; /* Reduce aún más el tamaño del título */
-    margin-left: 0; /* Elimina el margen izquierdo */
+    font-size: 1em;
+    /* Reduce aún más el tamaño del título */
+    margin-left: 0;
+    /* Elimina el margen izquierdo */
   }
 
   .registrar-usua {
-    font-size: 0.8rem; /* Reduce el tamaño de la fuente */
-    margin-left: 0; /* Elimina el margen izquierdo */
+    font-size: 0.8rem;
+    /* Reduce el tamaño de la fuente */
+    margin-left: 0;
+    /* Elimina el margen izquierdo */
   }
 
   .buscar-programacion {
-    font-size: 0.9rem; /* Ajusta el tamaño de la fuente */
+    font-size: 0.9rem;
+    /* Ajusta el tamaño de la fuente */
   }
 }
 
 /* Media queries para pantallas más grandes */
 @media (min-width: 1600px) {
+
+  .modal-content {
+    margin-top: 19% !important;
+  }
+
   .buscador-programacion {
-    max-width: 15%; /* Ajusta el ancho máximo para pantallas grandes */
-    margin-left: 25vh; /* Ajusta el margen izquierdo */
+    max-width: 70%;
+    /* Ajusta el ancho máximo para pantallas grandes */
+    margin-left: 2vh;
+    /* Ajusta el margen izquierdo */
   }
 
   .titulo-programacion {
-    font-size: 2em; /* Aumenta el tamaño del título */
-    margin-left: 20vh; /* Ajusta el margen izquierdo */
+    font-size: 2em;
+    /* Aumenta el tamaño del título */
+    margin-left: 2vh;
+    /* Ajusta el margen izquierdo */
   }
 
   .registrar-usua {
-    font-size: 1.2rem; /* Aumenta el tamaño de la fuente */
-    margin-left: 0.5vh; /* Ajusta el margen izquierdo */
+    font-size: 1.2rem;
+    /* Aumenta el tamaño de la fuente */
+    margin-left: 0.5vh;
+    /* Ajusta el margen izquierdo */
   }
+
+  .agregarProgramacion {
+    padding: 0 5%;
+    border: none;
+    color: #fff;
+    background-color: #5CB85C;
+    border-radius: 8px;
+  }
+
+  .info-buttons-agregarProgramacion {
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    margin-top: 53.5%;
+    margin-right: -30%;
+    height: 12%;
+    width: 70%;
+    border: none;
+    border: 8px;
+    padding: 12px 20px 12px 20px;
+    right: 90%;
+  }
+
+  .info-buttons {
+    left: 200px;
+  }
+
 }
 
 
@@ -2073,9 +2415,11 @@ button[type="submit"]:hover {
   display: flex;
   flex-wrap: wrap;
 }
+
 .ul-navIndex {
   list-style: none;
 }
+
 body {
   font-family: "Poppins", sans-serif;
   line-height: 1.5;
@@ -2129,11 +2473,8 @@ body {
   display: block;
   font-weight: 600;
 }
-.menu-index
-  .index-navbar
-  .ul-navIndex
-  .li-navIndex
-  .enlace-iniciarsesion:hover {
+
+.menu-index .index-navbar .ul-navIndex .li-navIndex .enlace-iniciarsesion:hover {
   color: #ce967b;
 }
 
@@ -2153,6 +2494,7 @@ body {
 .header2-index {
   text-align: center;
 }
+
 .header2-index .titulo1-bienestar {
   font-size: 75px;
   line-height: 80px;
@@ -2167,6 +2509,7 @@ body {
   padding: 0 250px;
   margin-bottom: 25px;
 }
+
 .section-inicio1-index {
   padding: 100px 0;
   background-color: #e1e2e6;
@@ -2213,6 +2556,7 @@ body {
 .item-index {
   padding: 0 25px;
 }
+
 .item-index .imagen-index {
   width: 200px;
 }
@@ -2281,8 +2625,10 @@ body {
 
 /* styles.css */
 .imagen-index {
-  display: flex; /* Para que el margen inferior funcione correctamente */
-  margin-bottom: 20px; /* Ajusta el valor según tus necesidades */
+  display: flex;
+  /* Para que el margen inferior funcione correctamente */
+  margin-bottom: 20px;
+  /* Ajusta el valor según tus necesidades */
   margin-left: 40%;
 }
 
@@ -2406,10 +2752,12 @@ body {
   background-color: #24262b;
   padding: 70px 0;
 }
+
 .footer-col {
   width: 25%;
   padding: 0 15px;
 }
+
 .footer-col h4 {
   font-size: 18px;
   color: #ffffff;
@@ -2418,6 +2766,7 @@ body {
   font-weight: 500;
   position: relative;
 }
+
 .footer-col h4::before {
   content: "";
   position: absolute;
@@ -2428,9 +2777,11 @@ body {
   box-sizing: border-box;
   width: 50px;
 }
+
 .footer-col .ul-navIndex .li-navIndex:not(:last-child) {
   margin-bottom: 10px;
 }
+
 .footer-col .ul-navIndex .li-navIndex .enlace-iniciarsesion {
   font-size: 16px;
   text-transform: capitalize;
@@ -2441,10 +2792,12 @@ body {
   display: block;
   transition: all 0.3s ease;
 }
+
 .footer-col .ul-navIndex .li-navIndex .enlace-iniciarsesion:hover {
   color: #ffffff;
   padding-left: 8px;
 }
+
 .footer-col .social-links a {
   display: inline-block;
   height: 40px;
@@ -2457,6 +2810,7 @@ body {
   color: #ffffff;
   transition: all 0.5s ease;
 }
+
 .footer-col .social-links a:hover {
   color: #24262b;
   background-color: #ffffff;
@@ -2469,6 +2823,7 @@ body {
     margin-bottom: 30px;
   }
 }
+
 @media (max-width: 574px) {
   .footer-col {
     width: 100%;
@@ -2600,7 +2955,8 @@ body {
 }
 
 .form-control-login {
-  padding-right: 2.5rem; /* Espacio para el ícono */
+  padding-right: 2.5rem;
+  /* Espacio para el ícono */
 }
 
 .password-toggle-icon {
@@ -2616,221 +2972,3 @@ body {
 .password-toggle-icon:hover {
   color: #495057;
 }
-
-/* Archivo de estilos CSS */
-
-/* Estilo para el contenedor del calendario */
-.calendar-container {
-  width: 100%; /* Ajustar tamaño del calendario */
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.fc-day-header {
-  background-color: #ffcc00; /* Color de los encabezados de los días */
-  color: #fff;
-}
-
-.fc-event {
-  background-color: #3788d8 !important; /* Azul por defecto de FullCalendar */
-  color: white !important; /* Texto blanco para buena legibilidad */
-}
-
-/* Estilo para el contenedor del modal */
-.modal-dialog {
-  max-width: 40%; /* Mismo tamaño que el calendario */
-  max-height: 50vh;
-  margin: 0 auto; /* Centrar el modal horizontalmente */
-}
-
-.modal-content {
-  border-radius: 10px; /* Opcional: para que coincida con el calendario */
-}
-
-/* Cambia el color del botón "Agregar" en el modal a verde */
-.modal-footer .btn-primary {
-  background-color: #28a745; /* Verde Bootstrap */
-  border-color: #28a745;
-}
-
-.modal-footer .btn-primary:hover {
-  background-color: #218838; /* Verde más oscuro */
-  border-color: #1e7e34;
-}
-
-/* Aumenta la especificidad para asegurarte de que tus estilos se apliquen */
-.fc-button-primary {
-  background-color: #28a745 !important; /* Verde Bootstrap */
-  border-color: #28a745 !important;
-  color: white !important;
-}
-
-.fc-button-primary:hover {
-  background-color: #218838 !important; /* Verde más oscuro */
-  border-color: #1e7e34 !important;
-}
-
-/* Elimina la decoración del texto en los días de la semana y los números */
-.fc-daygrid-day-number,
-.fc-daygrid-day-top {
-  text-decoration: none !important;
-  color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1)) !important;
-}
-
-
-/*Calendario admin*/
-/* Archivo de estilos CSS */
-/* Estilo para el contenedor del calendario */
-.calendar-container {
-  width: 100%; /* Ajustar tamaño del calendario */
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.fc-day-header {
-  background-color: #ffcc00; /* Color de los encabezados de los días */
-  color: #fff;
-}
-
-.fc-event {
-  background-color: #3788d8 !important; /* Azul por defecto de FullCalendar */
-  color: white !important; /* Texto blanco para buena legibilidad */
-}
-
-/* Estilo para el contenedor del modal */
-.modal-dialog {
-  max-width: 40%; /* Mismo tamaño que el calendario */
-  max-height: 50vh;
-  margin: 0 auto; /* Centrar el modal horizontalmente */
-}
-
-.modal-content {
-  border-radius: 10px; /* Opcional: para que coincida con el calendario */
-}
-
-/* Cambia el color del botón "Agregar" en el modal a verde */
-.modal-footer .btn-primary {
-  background-color: #28a745; /* Verde Bootstrap */
-  border-color: #28a745;
-}
-
-.modal-footer .btn-primary:hover {
-  background-color: #218838; /* Verde más oscuro */
-  border-color: #1e7e34;
-}
-
-/* Aumenta la especificidad para asegurarte de que tus estilos se apliquen */
-.fc-button-primary {
-  background-color: #28a745 !important; /* Verde Bootstrap */
-  border-color: #28a745 !important;
-  color: white !important;
-}
-
-.fc-button-primary:hover {
-  background-color: #218838 !important; /* Verde más oscuro */
-  border-color: #1e7e34 !important;
-}
-
-/* Elimina la decoración del texto en los días de la semana y los números */
-.fc-daygrid-day-number,
-.fc-daygrid-day-top {
-  text-decoration: none !important;
-  color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1)) !important;
-}
-
-
-/*Calendario admin*/
-/* Archivo de estilos CSS */
-/* Estilo para el contenedor del calendario */
-.calendar-container {
-      margin: 0;
-      overflow-y: auto;
-      overflow-x: hidden;
-      width: 100%;
-      max-width: 600px;
-      height: 315px;
-      padding: 10px;
-      border: 2px solid #5cb85c;
-      border-radius: 8px;
-      background-color: #fff;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      box-sizing: border-box;
-      margin-top: -24%;
-      margin-left: 50%;
-      margin-right: auto;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .titulo-calendario {
-      text-align: center;
-      margin: 0; /* Sin margen */
-      padding: 0; /* Sin padding */
-      font-size: 1.5rem;
-      position: relative; /* Habilita el uso de top y left */
-      top: -60vh; /* Ajusta para moverlo hacia arriba */
-      left: 100px; /* Ajusta este valor para moverlo hacia la derecha */
-    }
-       
-    
-  
-  .fc-day-header {
-    background-color: #ffcc00; /* Color de los encabezados de los días */
-    color: #fff;
-  }
-  
-  .fc-event {
-    background-color: #3788d8 !important; /* Azul por defecto de FullCalendar */
-    color: white !important; /* Texto blanco para buena legibilidad */
-  }
-  
-  
-  /* Estilo para el contenedor del modal */
-  .modal-dialog {
-    max-width: 40%; /* Mismo tamaño que el calendario */
-    max-height: 50vh;
-    margin: 0 auto; /* Centrar el modal horizontalmente */
-  }
-  
-  .modal-content {
-    border-radius: 10px; /* Opcional: para que coincida con el calendario */
-  }
-  
-  
-  /* Cambia el color del botón "Agregar" en el modal a verde */
-  .modal-footer .btn-primary {
-    background-color: #28a745; /* Verde Bootstrap */
-    border-color: #28a745;
-  }
-  
-  .modal-footer .btn-primary:hover {
-    background-color: #218838; /* Verde más oscuro */
-    border-color: #1e7e34;
-  }
-  
-  /* Aumenta la especificidad para asegurarte de que tus estilos se apliquen */
-  .fc-button-primary {
-    background-color: #28a745 !important; /* Verde Bootstrap */
-    border-color: #28a745 !important;
-    color: white !important;
-  }
-  
-  .fc-button-primary:hover {
-    background-color: #218838 !important; /* Verde más oscuro */
-    border-color: #1e7e34 !important;
-  }
-  
-  
-  
-  /* Elimina la decoración del texto en los días de la semana y los números */
-  .fc-daygrid-day-number,
-  .fc-daygrid-day-top {
-    text-decoration: none !important;
-    color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1)) !important;
-  }

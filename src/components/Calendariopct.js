@@ -46,6 +46,8 @@ const Calendario = () => {
   const [capacitadores, setCapacitadores] = useState([]);
   const [fichas, setFichas] = useState([]);
 
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -99,14 +101,15 @@ const Calendario = () => {
             },
           })
         );
-
-        // Combina los nuevos eventos con los existentes para evitar que se sobrescriban
-        setEvents((prevEvents) => [...prevEvents, ...eventosMapeados]);
+  
+        // Reemplaza los eventos anteriores con los nuevos
+        setEvents(eventosMapeados);
       }
     } catch (error) {
       console.error("Error loading events", error);
     }
-  };
+  };  
+
 
   const validateEvent = () => {
     const start = new Date(`${newEvent.date}T${newEvent.startTime}`);
@@ -289,6 +292,7 @@ const Calendario = () => {
         );
       }
 
+      await loadEvents();
       setShowModal(false);
     } catch (error) {
       console.error("Error al guardar el evento", error);
@@ -304,6 +308,10 @@ const Calendario = () => {
     if (selectedEvent) {
       try {
         await deleteProgramacion(selectedEvent.id);
+
+        // Refresca el calendario para ver los cambios
+        await loadEvents();
+
         setEvents(events.filter((event) => event.id !== selectedEvent.id));
         setShowModal(false);
       } catch (error) {

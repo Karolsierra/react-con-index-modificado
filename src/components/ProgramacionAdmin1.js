@@ -48,8 +48,8 @@ const ProgramacionAdmin1 = () => {
     });
   };
 
-/*   
-const handleBusca = () => {
+  
+const handleBuscar = () => {
     if (coordinacion && ficha) {
       setShowInfo(true);
     } else {
@@ -61,7 +61,7 @@ const handleBusca = () => {
       });
     }
   }; 
-*/
+
 
   const toggleDropdown = (e) => {
     const dropdown = e.currentTarget.nextElementSibling;
@@ -382,7 +382,7 @@ const handleBusca = () => {
     }
   };
 
-  const handleBuscar = () => {
+/*   const handleBuscar = () => {
     const horarioEncontrado = horarios.find(
       (horario) =>
         horario.ficha === fichaConsultar &&
@@ -400,7 +400,7 @@ const handleBusca = () => {
         text: "No se encontró el horario para la ficha ingresada.",
       });
     }
-  };
+  }; */
 
   // Estado para almacenar los horarios
   const [horarios, setHorarios] = useState([]);
