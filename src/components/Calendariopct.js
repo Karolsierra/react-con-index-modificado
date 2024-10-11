@@ -46,8 +46,6 @@ const Calendario = () => {
   const [capacitadores, setCapacitadores] = useState([]);
   const [fichas, setFichas] = useState([]);
 
-
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -101,19 +99,29 @@ const Calendario = () => {
             },
           })
         );
-  
+
         // Reemplaza los eventos anteriores con los nuevos
         setEvents(eventosMapeados);
       }
     } catch (error) {
       console.error("Error loading events", error);
     }
-  };  
-
+  };
 
   const validateEvent = () => {
+    const today = new Date().setHours(0, 0, 0, 0);
     const start = new Date(`${newEvent.date}T${newEvent.startTime}`);
     const end = new Date(`${newEvent.date}T${newEvent.endTime}`);
+
+    // Verificar si la fecha de inicio es anterior a hoy
+    if (start < today) {
+      Swal.fire(
+        "Error",
+        "No puedes crear o modificar una programación en fechas anteriores a hoy.",
+        "error"
+      );
+      return false;
+    }
 
     if (end <= start) {
       Swal.fire(
@@ -257,9 +265,7 @@ const Calendario = () => {
 
         setEvents((prev) =>
           prev.map((e) =>
-            e.id_procaptall === selectedEvent.id
-              ? { ...e, ...event }
-              : e
+            e.id_procaptall === selectedEvent.id ? { ...e, ...event } : e
           )
         );
         Swal.fire(
@@ -305,6 +311,19 @@ const Calendario = () => {
   };
 
   const handleDeleteEvent = async () => {
+    const today = new Date().setHours(0, 0, 0, 0); // Fecha actual sin la hora
+    const eventDate = new Date(selectedEvent.start).setHours(0, 0, 0, 0); // Fecha del evento sin la hora
+
+    // Verificar si la fecha del evento es anterior a hoy
+    if (eventDate < today) {
+      Swal.fire(
+        "Error",
+        "No puedes eliminar una programación anterior a hoy.",
+        "error"
+      );
+      return;
+    }
+
     if (selectedEvent) {
       try {
         await deleteProgramacion(selectedEvent.id);

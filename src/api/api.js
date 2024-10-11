@@ -1,4 +1,33 @@
-const API_BASE_URL = "http://localhost:7777/api"; // Cambia esto a la URL de tu backend
+const API_BASE_URL = "http://localhost:7777/api";
+
+export const cargarImagenHorario = async (
+  fecha_fintrimestre_Horari,
+  numero_FichaFK,
+  imagenFile
+) => {
+  try {
+    const formData = new FormData();
+    formData.append("fecha_fintrimestre_Horari", fecha_fintrimestre_Horari);
+    formData.append("numero_FichaFK", numero_FichaFK);
+    formData.append("imagen", imagenFile); // Asegúrate de que el campo del archivo coincida con el nombre que utilizaste en el middleware
+
+    const response = await fetch(`${API_BASE_URL}/horarios/upload-image`, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error en la solicitud: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log("Respuesta de la API:", data); // Verifica la respuesta
+    return data;
+  } catch (error) {
+    console.error(`Error al cargar imagen y crear horario: ${error.message}`);
+    throw error;
+  }
+};
 
 // Obtener todas las programaciones
 
@@ -103,6 +132,29 @@ export const consultarTallerPorNombre = async (nombreTaller) => {
   }
 };
 
+export const getTiposDeTalleres = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/tipos-talleres`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(
+        errorData.message || "Error desconocido al obtener tipos de talleres"
+      );
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error al obtener tipos de talleres:", error);
+    throw error;
+  }
+};
+
 export const postTaller = async (tallerData) => {
   try {
     const response = await fetch(`${API_BASE_URL}/taller`, {
@@ -142,10 +194,19 @@ export const deleteTaller = async (id) => {
   });
 };
 
-// Fichas
+//Fichas
 export const getFichas = async () => {
-  const response = await fetch(`${API_BASE_URL}/ficha`);
-  return response.json();
+  try {
+    const response = await fetch(`${API_BASE_URL}/ficha`);
+    if (!response.ok) {
+      // Si la respuesta no es 200, lanzar un error
+      throw new Error(`Error en la solicitud: ${response.statusText}`);
+    }
+    return await response.json(); // Devuelve el JSON de la respuesta
+  } catch (error) {
+    console.error("Error al obtener fichas:", error);
+    throw error; // Lanza el error para que se maneje en el frontend
+  }
 };
 
 export const getFicha = async (id) => {
@@ -153,7 +214,11 @@ export const getFicha = async (id) => {
   return response.json();
 };
 
-export const createFicha = async (numero_Ficha, cordinacion_Ficha) => {
+export const createFicha = async (
+  numero_Ficha,
+  cordinacion_Ficha,
+  especialidad_Ficha
+) => {
   try {
     const response = await fetch(`${API_BASE_URL}/ficha`, {
       method: "POST",
@@ -163,6 +228,7 @@ export const createFicha = async (numero_Ficha, cordinacion_Ficha) => {
       body: JSON.stringify({
         numero_Ficha,
         cordinacion_Ficha,
+        especialidad_Ficha, // Añadimos la especialidad
       }),
     });
 
@@ -406,14 +472,16 @@ export const registerUsuario = async (usuarioData) => {
       },
       body: JSON.stringify(usuarioData),
     });
+
+    // Manejar respuestas de error
     if (!response.ok) {
-      // Manejar errores de respuesta
       const errorData = await response.json();
-      throw new Error(errorData.message || "Error al registrar usuario");
+      const errorMessage = errorData.message || "Error al registrar usuario";
+      throw new Error(errorMessage);
     }
 
-    const data = await response.json();
-    return data; // Retorna la respuesta exitosa
+    // Retornar la respuesta exitosa
+    return await response.json();
   } catch (error) {
     console.error("Error en registerUsuario:", error.message);
     throw error; // Vuelve a lanzar el error para manejarlo más arriba si es necesario
@@ -439,6 +507,52 @@ export const uploadUsuariosExcel = async (file) => {
     return data;
   } catch (error) {
     console.error(`Error al cargar usuarios desde Excel: ${error.message}`);
+    throw error;
+  }
+};
+
+export const uploadFichasExcel = async (file) => {
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const response = await fetch(`${API_BASE_URL}/fichas/upload`, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error en la solicitud: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log("Fichas cargadas desde Excel:", data);
+    return data;
+  } catch (error) {
+    console.error(`Error al cargar fichas desde Excel: ${error.message}`);
+    throw error;
+  }
+};
+
+export const uploadTalleresExcel = async (file) => {
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const response = await fetch(`${API_BASE_URL}/talleres/upload`, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error en la solicitud: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log("Talleres cargados desde Excel:", data);
+    return data;
+  } catch (error) {
+    console.error(`Error al cargar talleres desde Excel: ${error.message}`);
     throw error;
   }
 };

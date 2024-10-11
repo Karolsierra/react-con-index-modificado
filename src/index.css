@@ -256,7 +256,7 @@
 .buscador-usuarios {
   max-width: 20%;
   /* ancho máximo */
-  max-height: 65vh;
+  max-height: 70vh;
   margin-left: 16vh;
   margin-bottom: 0;
   padding: 20px;
@@ -790,29 +790,14 @@ swal.fire title {
 /* Estilo del contenedor principal */
 /* Contenedor principal del perfil de administrador */
 html {
-  height: 100% !important;
-  /* Asegura que el html y el body ocupen el 100% del alto */
-  width: 100% !important;
   margin: 0 !important;
   /* Elimina el margen predeterminado */
 }
 
 html,
 body {
-  background-color: #5cb85c15 !important;
-}
-
-html,
-body {
-  height: 100% !important;
-  /* Asegura que el html y el body ocupen el 100% del alto */
-  width: 100% !important;
-  margin: 0 !important;
-  /* Elimina el margen predeterminado */
-}
-
-html,
-body {
+  height: auto !important;
+  width: auto !important;
   background-color: #5cb85c15 !important;
 }
 
@@ -2181,107 +2166,74 @@ button[type="submit"]:hover {
 
 .info-display {
   display: flex;
-  border: 1px solid #5cb85c;
+  flex-direction: column;
+  border: 1.5px solid #5cb85c;
   background-color: #f9f9f9;
   margin: 2% 5% 1% 1%;
   width: 55%;
   height: 70vh;
   border-radius: 8px;
+  padding: 20px;
 }
 
 .info-item {
   display: flex;
+  justify-content: space-between; /* Distribuye los elementos de "Ficha" y "Coordinación" uno al lado del otro */
   margin: 3% 4%;
+  width: 100%; /* Asegura que ambos inputs ocupen todo el ancho disponible */
+}
+
+.espaciado {
+  height: 40px;
+  width: 45%; /* Hace que los inputs ocupen la mitad del ancho de la fila */
+  border: 1px solid #4cae4c;
+  border-radius: 5px;
+  background-color: #fafafa;
 }
 
 .info-buttons {
   display: flex;
-  justify-content: space-around;
-  position: relative;
-  left: 100px;
-  padding: auto 2%;
-  margin-left: 1%;
-  margin-top: 55%;
-  height: 8%;
-  width: 10%;
-  border: 1px solid #3e8e41;
-  border: 8px;
+  justify-content: space-between; /* Asegura que los botones se alineen uno al lado del otro */
+  margin-top: 20px;
+  width: 100%; /* Ocupa todo el ancho del contenedor */
 }
 
-.buton-horario.guardar {
-  background-color: #28a745;
-
-}
-
-.buton-horario.eliminar {
-  background-color: #dc3545;
-}
-
-.buton-horario {
+.buton-horario-guardar,
+.buton-horario-eliminar,
+.agregarProgramacion {
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
   border: none;
-  border-radius: 5px;
-}
-
-.buton-horario-guardar {
-  background-color: #5CB85C;
-  border: 1px solid #5CB85C;
   color: #fff;
-  border-radius: 8px;
-  width: 35vh;
-}
-
-.buton-horario-eliminar {
   background-color: #5CB85C;
-  border: 1px solid #5CB85C;
-  color: #fff;
   border-radius: 8px;
-  width: 35vh;
+  width: 180px;
+  text-align: center;
 }
 
-.info-buttons-agregarProgramacion {
-  display: flex;
-  justify-content: space-around;
-  position: relative;
-  margin-top: 53%;
-  margin-right: -30%;
+.image-preview {
+  margin-top: 10px;
+  width: 100%;
   height: auto;
-  width: 70%;
-  border: none;
-  border: 8px;
-  padding: 12px 20px 12px 20px;
-  right: 90%;
-}
-
-.agregarProgramacion {
-  padding: 0 5% 0 !important;
-  border: none;
-  color: #fff;
-  background-color: #5CB85C;
+  border: 1px solid #ccc;
   border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.info-display {
-  border: 1.5px solid #5CB85C;
-  padding: 20px;
-  border-radius: 5px;
-  margin-top: 20px;
+.image-preview img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 8px;
 }
 
 .swal2-confirm.swal2-styled {
   background-color: #5cb85c;
 }
 
-.espaciado {
-  margin-left: 5px;
-  height: 6%;
-  width: 70%;
-  border: 1px solid #4cae4c;
-  border-radius: 5px;
-  background-color: #fafafa;
-}
+
 
 /* Media queries para pantallas más pequeñas */
 @media (max-width: 1024px) {

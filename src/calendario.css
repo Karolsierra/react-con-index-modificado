@@ -27,8 +27,10 @@
 .fc-daygrid-event {
   padding: 15px 0px 0px 0px; /* Adjust padding */
   margin: 10px; /* Ensure no extra margin */
-  height: 20px; /* Fit content height */
+  height: 30px; /* Fit content height */
   width: auto;
+  background-color: #5cb85c; /* Color verde para las programaciones */
+  color: white; /* Color de texto, si es necesario */
 }
 
 /* Adjust text size and reduce spacing */
