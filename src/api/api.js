@@ -556,3 +556,32 @@ export const uploadTalleresExcel = async (file) => {
     throw error;
   }
 };
+
+
+export const getHorariosPorFichaYCoordinacion = async (numeroFicha, coordinacionFicha) => {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/horarios/${numeroFicha}/${coordinacionFicha}`
+    );
+    if (!response.ok) {
+      throw new Error("Error en la respuesta de la API");
+    }
+    return response.json();
+  } catch (error) {
+    console.error("Error al obtener los horarios:", error);
+    throw error;
+  }
+};
+
+export const getCoordinaciones = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/coordinaciones`);
+    if (!response.ok) {
+      throw new Error("Error en la respuesta de la API");
+    }
+    return await response.json(); // Asegúrate de parsear la respuesta JSON correctamente
+  } catch (error) {
+    console.error("Error al obtener las coordinaciones:", error);
+    throw error;
+  }
+};

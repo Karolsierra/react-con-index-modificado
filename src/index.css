@@ -1960,7 +1960,7 @@ body {
 }
 
 .cuadro-programacion {
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
   text-align: center;
   border: 1px solid #4caf50;
   border-radius: 8px;
@@ -1985,6 +1985,26 @@ body {
 .cuadro-programacion .text-programacion-agregar {
   margin: 0;
   font-size: 1rem;
+}
+
+.options-list {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  max-height: 150px;
+  overflow-y: auto;
+  position: absolute;
+  background-color: white;
+  width: 16.5%;
+  z-index: 1000;
+}
+
+.option-item {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.option-item:hover {
+  background-color: #f0f0f0;
 }
 
 .container-form-programacion {
@@ -2170,22 +2190,26 @@ button[type="submit"]:hover {
   border: 1.5px solid #5cb85c;
   background-color: #f9f9f9;
   margin: 2% 5% 1% 1%;
-  width: 55%;
-  height: 70vh;
+  width: 60%;
+  height: 80vh;
   border-radius: 8px;
   padding: 20px;
 }
 
+.info-label-h {
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
 .info-item {
   display: flex;
-  justify-content: space-between; /* Distribuye los elementos de "Ficha" y "Coordinación" uno al lado del otro */
-  margin: 3% 4%;
+  margin: 0%;
   width: 100%; /* Asegura que ambos inputs ocupen todo el ancho disponible */
 }
 
 .espaciado {
-  height: 40px;
-  width: 45%; /* Hace que los inputs ocupen la mitad del ancho de la fila */
+  height: 25px;
+  width: 30%; /* Hace que los inputs ocupen la mitad del ancho de la fila */
   border: 1px solid #4cae4c;
   border-radius: 5px;
   background-color: #fafafa;
@@ -2198,10 +2222,9 @@ button[type="submit"]:hover {
   width: 100%; /* Ocupa todo el ancho del contenedor */
 }
 
-.buton-horario-guardar,
-.buton-horario-eliminar,
-.agregarProgramacion {
-  padding: 10px 20px;
+.buton-horario-eliminar
+ {
+  padding: 10px 10px;
   font-size: 16px;
   cursor: pointer;
   border: none;
@@ -2212,21 +2235,55 @@ button[type="submit"]:hover {
   text-align: center;
 }
 
+.agregarProgramacion{
+  padding: 10px 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  color: #fff;
+  background-color: #5CB85C;
+  border-radius: 8px;
+  width: 201px;
+  text-align: center;
+}
+
+
 .image-preview {
   margin-top: 10px;
   width: 100%;
-  height: auto;
+  height: 80%; /* Altura ajustable */
+  max-height: 600px;
+  padding:380px 0 0 0;
   border: 1px solid #ccc;
   border-radius: 8px;
+  overflow-y: scroll; /* Solo scroll vertical */
+  overflow-x: scroll; /* Evita el scroll horizontal */
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #f9f9f9;
+}
+
+.image-preview img {
+  width: 100%; /* Deja que la imagen se expanda en su tamaño natural */
+  height: 100%; /* Mantiene la altura natural de la imagen */
+  max-width: none; /* Deshabilita la limitación en el ancho */
+  max-height: none; /* Deshabilita la limitación en la altura */
+  object-fit: contain; /* Mantiene la proporción original */
 }
 
 .image-preview img {
   max-width: 100%;
-  max-height: 200px;
-  border-radius: 8px;
+  height: auto; /* Ajusta la altura automáticamente para las imágenes verticales */
+  object-fit: contain; /* Contiene la imagen en el espacio disponible */
+}
+
+.image-preview:active {
+  cursor: grabbing; /* Cambia el cursor al hacer clic */
+}
+
+.image-preview:active img {
+  transform: scale(2); /* Hace zoom cuando se hace clic */
 }
 
 .swal2-confirm.swal2-styled {

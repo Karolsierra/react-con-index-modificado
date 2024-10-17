@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import "select2";
-import Loader from "../components/Loader";
 import "select2/dist/css/select2.min.css";
 import { utils, writeFile } from "xlsx";
 import Insertar from "../static/img/enlaceInsertar.png";
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 import { createFicha } from "../api/api";
 import {
   updateFicha,
   deleteFicha,
   postTaller,
+  getCoordinaciones,
   uploadFichasExcel,
+  getHorariosPorFichaYCoordinacion,
   getFichas,
   putTaller,
   getTiposDeTalleres,
@@ -24,6 +27,10 @@ import Calendariopct from "../components/Calendariopct";
 const ProgramacionAdmin1 = () => {
   const [coordinacion, setCoordinacion] = useState("");
   const [ficha, setFicha] = useState("");
+  const [fichas, setFichas] = useState([]);
+  const [coordinaciones, setCoordinaciones] = useState([]);
+  const [filteredCoordinaciones, setFilteredCoordinaciones] = useState([]);
+  const [filteredFichas, setFilteredFichas] = useState([]);
   const [showInfo, setShowInfo] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
   const [fichaConsultar, setFichaConsultar] = useState("");
@@ -40,6 +47,7 @@ const ProgramacionAdmin1 = () => {
     setShowCalendar(false); // Cerrar el calendario cuando se presiona "Volver" o se hace clic fuera del modal
   };
 
+  /*
   const handleGuardar = () => {
     Swal.fire({
       icon: "success",
@@ -47,7 +55,8 @@ const ProgramacionAdmin1 = () => {
       text: "El horario se ha guardado correctamente.",
       confirmButtonText: "Aceptar",
     });
-  };
+  }; 
+*/
 
   const handleEliminar = () => {
     Swal.fire({
@@ -56,19 +65,6 @@ const ProgramacionAdmin1 = () => {
       text: "El horario se ha eliminado correctamente.",
       confirmButtonText: "Aceptar",
     });
-  };
-
-  const handleBuscar = () => {
-    if (coordinacion && ficha) {
-      setShowInfo(true);
-    } else {
-      setShowInfo(false);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Por favor, completa ambos campos antes de buscar.",
-      });
-    }
   };
 
   const toggleDropdown = (e) => {
@@ -88,8 +84,6 @@ const ProgramacionAdmin1 = () => {
       arrow.classList.add("down");
     }
   };
-
-  let fichas = [];
 
   //AQUI EMPIEZAN LAS FUNCIONES DE LA GESTION DE FICHAS
 
@@ -343,8 +337,8 @@ const ProgramacionAdmin1 = () => {
   // Función para consultar las fichas
   const handleConsultFicha = async () => {
     try {
-      // Llamada a la API para obtener todas las fichas
-      fichas = await getFichas();
+      const fetchedFichas = await getFichas();
+      setFichas(fetchedFichas); // Establecer las fichas en el estado
 
       // Mostrar el modal
       Swal.fire({
@@ -369,7 +363,7 @@ const ProgramacionAdmin1 = () => {
             fichaList.innerHTML = ""; // Limpiar la lista previa
 
             if (inputVal) {
-              const filteredFichas = fichas.filter((ficha) =>
+              const filteredFichas = fetchedFichas.filter((ficha) =>
                 ficha.numero_Ficha.toString().toLowerCase().includes(inputVal)
               );
 
@@ -396,7 +390,7 @@ const ProgramacionAdmin1 = () => {
             .getElementById("btn-buscar")
             .addEventListener("click", function () {
               const selectedFichaId = fichaInput.value.trim();
-              const selectedFicha = fichas.find(
+              const selectedFicha = fetchedFichas.find(
                 (ficha) => ficha.numero_Ficha.toString() === selectedFichaId
               );
 
@@ -1126,29 +1120,109 @@ const ProgramacionAdmin1 = () => {
     }
   };
 
-  /*   const handleBuscar = () => {
-    const horarioEncontrado = horarios.find(
-      (horario) =>
-        horario.ficha === fichaConsultar &&
-        horario.coordinacion === coordinacion
-    );
-
-    if (horarioEncontrado) {
-      setHorarioConsultado(horarioEncontrado);
-      setShowInfo(true);
-    } else {
-      setShowInfo(false);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "No se encontró el horario para la ficha ingresada.",
-      });
+  const fetchCoordinaciones = async () => {
+    try {
+      const coordinaciones = await getCoordinaciones();
+      setCoordinaciones(coordinaciones); // Guardar todas las coordinaciones
+      setFilteredCoordinaciones(coordinaciones); // Mostrar todas las coordinaciones inicialmente
+    } catch (error) {
+      console.error("Error al obtener las coordinaciones:", error);
     }
-  }; */
+  };
 
-  // Estado para almacenar los horarios
-  const [horarios, setHorarios] = useState([]);
-  const [horarioConsultado, setHorarioConsultado] = useState(null); // Para almacenar el horario consultado
+  useEffect(() => {
+    const fetchFichas = async () => {
+      try {
+        const fichasData = await getFichas();
+        setFichas(fichasData); // Guardar todas las fichas
+        setFilteredFichas(fichasData); // Mostrar todas las fichas inicialmente
+      } catch (error) {
+        console.error("Error al obtener las fichas:", error);
+      }
+    };
+
+    fetchFichas();
+    fetchCoordinaciones(); // Obtener coordinaciones al cargar el componente
+  }, []);
+
+  // Lógica para manejar el filtro de Fichas en tiempo real
+  const handleInputChangeFicha = (e) => {
+    const inputVal = e.target.value;
+    setFicha(inputVal);
+
+    const filtered = fichas.filter((ficha) =>
+      ficha.numero_Ficha.toString().includes(inputVal)
+    );
+    setFilteredFichas(filtered);
+  };
+
+  // Lógica para manejar el filtro de Coordinaciones en tiempo real
+  const handleInputChangeCoordinacion = (e) => {
+    const inputVal = e.target.value;
+    setCoordinacion(inputVal);
+
+    const filtered = coordinaciones.filter(
+      (coord) =>
+        coord.cordinacion_Ficha.toLowerCase().includes(inputVal.toLowerCase()) // Filtra por cordinacion_Ficha
+    );
+    setFilteredCoordinaciones(filtered);
+  };
+
+  // Selección de Ficha
+  const handleSelectFicha = (selectedFicha) => {
+    setFicha(selectedFicha.numero_Ficha); // Selecciona el número de ficha
+    setFilteredFichas([]); // Limpiar opciones después de seleccionar
+  };
+
+  // Selección de Coordinación
+  const handleSelectCoordinacion = (selectedCoord) => {
+    setCoordinacion(selectedCoord.cordinacion_Ficha); // Selecciona cordinacion_Ficha correctamente
+    setFilteredCoordinaciones([]); // Limpiar opciones después de seleccionar
+  };
+
+  // Mostrar todas las coordinaciones al hacer clic en el campo
+  const showAllCoordinaciones = () => {
+    setFilteredCoordinaciones(coordinaciones); // Mostrar todas las opciones cuando se hace clic
+  };
+
+  // Mostrar todas las fichas al hacer clic en el campo
+  const showAllFichas = () => {
+    setFilteredFichas(fichas); // Mostrar todas las fichas al hacer clic
+  };
+
+  const [horario, setHorario] = useState({
+    fechaFin: '',
+    rutaImagen: ''
+  });
+
+
+  const handleBuscar = async () => {
+    try {
+      const horarios = await getHorariosPorFichaYCoordinacion(ficha, coordinacion);
+      
+      // Verifica si hay datos en el array
+      if (horarios && horarios[0]) {
+        const { fecha_fintrimestre_Horari, ruta_imagen_Horari } = horarios[0]; // Accede a la primera posición
+  
+        // Actualiza el estado con los datos obtenidos
+        setHorario({
+          fechaFin: fecha_fintrimestre_Horari,
+          rutaImagen: ruta_imagen_Horari
+        });
+  
+        setShowInfo(true); // Mostrar la información después de la búsqueda exitosa
+      } else {
+        console.error("No se encontraron horarios.");
+        setShowInfo(false); // Ocultar si no hay datos
+      }
+      console.log("Ruta de la imagen:", horario.rutaImagen);
+    } catch (error) {
+      console.error("Error al buscar horarios:", error);
+      setShowInfo(false); // En caso de error también ocultar la información
+    }
+  };
+  
+  
 
   return (
     <div className="contenedor-principal">
@@ -1240,47 +1314,73 @@ const ProgramacionAdmin1 = () => {
             <div className="form-busqueda-programacion">
               <div className="campo-programacion">
                 <label
-                  className="label-form-programacion"
                   htmlFor="coordinacionBusqueda"
+                  className="label-form-programacion"
                 >
                   Coordinación:
                 </label>
-                <select
-                  className="select-form-programacion"
+                <input
+                  type="text"
                   id="coordinacionBusqueda"
                   name="coordinacionBusqueda"
+                  pattern="[A-Za-z]+" title="Solo se permiten letras"
+                  className="input-form-programacion"
                   value={coordinacion}
-                  onChange={(e) => setCoordinacion(e.target.value)}
-                >
-                  <option value="">Seleccione la coordinación</option>
-                  <option value="teleinformatica">Teleinformática</option>
-                  <option value="mercadeo">Mercadeo</option>
-                  <option value="logistica">Logística</option>
-                </select>
+                  onChange={handleInputChangeCoordinacion}
+                  onFocus={showAllCoordinaciones} // Mostrar todas las opciones al hacer clic
+                  placeholder="Escriba una coordinación"
+                />
+                {coordinacion && filteredCoordinaciones.length > 0 && (
+                  <div className="options-list">
+                    {filteredCoordinaciones.map((coord, index) => (
+                      <div
+                        key={index}
+                        className="option-item"
+                        onClick={() => handleSelectCoordinacion(coord)}
+                      >
+                        {coord.cordinacion_Ficha}{" "}
+                        {/* Mostrando la propiedad correcta */}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
+
               <div className="campo-programacion">
                 <label
-                  className="label-form-programacion"
                   htmlFor="fichaBusqueda"
+                  className="label-form-programacion"
                 >
                   Ficha:
                 </label>
                 <input
-                  className="input-form-programacion-ficha"
                   type="text"
                   id="fichaBusqueda"
                   name="fichaBusqueda"
-                  placeholder="Ingrese el número de ficha"
+                  className="input-form-programacion-ficha"
                   value={ficha}
-                  onChange={(e) => setFicha(e.target.value)}
+                  onChange={handleInputChangeFicha}
+                  onFocus={showAllFichas} // Mostrar todas las opciones al hacer clic
+                  placeholder="Ingrese el número de ficha"
                 />
+                {ficha && filteredFichas.length > 0 && (
+                  <div className="options-list">
+                    {filteredFichas.map((ficha, index) => (
+                      <div
+                        key={index}
+                        className="option-item"
+                        onClick={() => handleSelectFicha(ficha)}
+                      >
+                        {ficha.numero_Ficha} - {ficha.cordinacion_Ficha}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
-            </div>
-            <div className="form-group">
+
               <div className="campo-programacion">
                 <button
                   type="button"
-                  id="buscarButton"
                   className="buscar-programacion"
                   onClick={handleBuscar}
                 >
@@ -1294,34 +1394,29 @@ const ProgramacionAdmin1 = () => {
       {showInfo && (
         <div id="infoDisplay" className="info-display">
           <div className="info-item">
-            <label>Coordinación:</label>
-            <input type="text" className="espaciado" id="infoCoordinacion" />
-          </div>
-          <div className="info-item">
-            <label>Ficha:</label>
-            <input className="espaciado" id="infoFicha" />
+            <label className="info-label-h">Fecha final del trimestre:</label>
+            <input
+              type="text"
+              className="espaciado"
+              id="infoCoordinacion"
+              value={horario.fechaFin} // Se vincula la fecha del estado
+              readOnly
+            />
           </div>
           <div className="image-preview">
-            {/* Aquí se mostrará la imagen cargada */}
-            <img src="ruta/de/tu/imagen.jpg" alt="Vista previa" />
+            {/* Aquí se mostrará la imagen cargada del estado */}
+            {horario.rutaImagen ? (
+              <Zoom>
+                <img
+                  src={`${horario.rutaImagen}?w=800&h=600&c=fit&q=80`}
+                  alt="Vista previa del horario"
+                />
+              </Zoom>
+            ) : (
+              <p>No hay imagen disponible</p>
+            )}
           </div>
           <div className="info-buttons">
-            <button
-              className="buton-horario-guardar"
-              id="guardarButton"
-              onClick={handleGuardar}
-            >
-              Guardar
-            </button>
-            <button
-              className="buton-horario-eliminar"
-              id="eliminarButton"
-              onClick={handleEliminar}
-            >
-              Eliminar
-            </button>
-          </div>
-          <div className="info-buttons-agregarProgramacion">
             <button
               className="agregarProgramacion"
               id="agregarProgramacion"
@@ -1329,6 +1424,15 @@ const ProgramacionAdmin1 = () => {
             >
               Agregar programación
             </button>
+            <button
+              className="buton-horario-eliminar"
+              id="eliminarButton"
+              onClick={handleEliminar}
+            >
+              Eliminar horario
+            </button>
+          </div>
+          <div className="info-buttons-agregarProgramacion">
             {showCalendar && (
               <div
                 style={{
