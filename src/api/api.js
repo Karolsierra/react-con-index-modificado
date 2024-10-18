@@ -1,5 +1,26 @@
 const API_BASE_URL = "http://localhost:7777/api";
 
+//instructor
+export const obtenerInstructores = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/instructor`, {
+      method: "GET",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error en la solicitud: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log("Respuesta de la API:", data); // Verifica la respuesta
+    return data;
+  } catch (error) {
+    console.error(`Error al obtener instructores: ${error.message}`);
+    throw error;
+  }
+};
+
+//horarios
 export const cargarImagenHorario = async (
   fecha_fintrimestre_Horari,
   numero_FichaFK,
@@ -25,6 +46,26 @@ export const cargarImagenHorario = async (
     return data;
   } catch (error) {
     console.error(`Error al cargar imagen y crear horario: ${error.message}`);
+    throw error;
+  }
+};
+
+//horarios
+export const eliminarHorario = async (id_Horari) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/horarios/${id_Horari}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error en la solicitud: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log("Horario eliminado:", data); // Verifica la respuesta
+    return data;
+  } catch (error) {
+    console.error(`Error al eliminar el horario: ${error.message}`);
     throw error;
   }
 };
@@ -557,8 +598,10 @@ export const uploadTalleresExcel = async (file) => {
   }
 };
 
-
-export const getHorariosPorFichaYCoordinacion = async (numeroFicha, coordinacionFicha) => {
+export const getHorariosPorFichaYCoordinacion = async (
+  numeroFicha,
+  coordinacionFicha
+) => {
   try {
     const response = await fetch(
       `${API_BASE_URL}/horarios/${numeroFicha}/${coordinacionFicha}`

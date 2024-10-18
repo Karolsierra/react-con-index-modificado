@@ -11,6 +11,7 @@ import {
   createProgramacion,
   updateProgramacion,
   deleteProgramacion,
+  obtenerInstructores,
   getTalleres,
   getCapacitadores,
   getFichas,
@@ -31,6 +32,7 @@ const Calendario = () => {
     endTime: "",
     taller: null,
     capacitador: null,
+    instructor:null,
     ficha: [],
     ambiente: "",
     allDay: false,
@@ -44,13 +46,15 @@ const Calendario = () => {
 
   const [talleres, setTalleres] = useState([]);
   const [capacitadores, setCapacitadores] = useState([]);
+  const [instructores, setInstructores] = useState([]);
   const [fichas, setFichas] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [talleresData, capacitadoresData, fichasData] = await Promise.all(
-          [getTalleres(), getCapacitadores(), getFichas()]
+        const [talleresData, capacitadoresData, fichasData, instructoresData] = await Promise.all(
+          [getTalleres(), getCapacitadores(), getFichas(),  obtenerInstructores()]
+
         );
         setTalleres(
           talleresData.map((taller) => ({
@@ -70,6 +74,13 @@ const Calendario = () => {
             label: ficha.numero_Ficha.toString(),
           }))
         );
+        setInstructores(
+          instructoresData.map((instructor) => ({
+            value: instructor.id_Instruc,
+            label: `${instructor.nombre_Instruc} ${instructor.apellido_Instruc}`,
+          }))
+        );
+  
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -94,6 +105,7 @@ const Calendario = () => {
               ambiente: event.ambiente_procaptall,
               taller: event.nombre_Taller || "",
               capacitador: event.p_nombreCapacitador || "",
+              instructor: event.p_nombreInstructor || "", 
               ficha: event.numero_FichaFK ? [event.numero_FichaFK] : [],
               descripcion: event.descripcion_procaptall || "",
             },
@@ -158,6 +170,16 @@ const Calendario = () => {
       return false;
     }
 
+      // Validación para el instructor
+    if (isOccupied("instructor", newEvent.instructor?.value)) {
+      Swal.fire(
+        "Error",
+        "El instructor ya tiene un taller asignado en este horario.",
+        "error"
+      );
+      return false;
+    }
+
     if (isOccupied("ambiente", newEvent.ambiente)) {
       Swal.fire(
         "Error",
@@ -185,6 +207,7 @@ const Calendario = () => {
       endTime: "",
       taller: null,
       capacitador: null,
+      instructor:null,
       ficha: [],
       ambiente: "",
       allDay: false,
@@ -195,6 +218,9 @@ const Calendario = () => {
 
   const handleEventClick = (info) => {
     const eventProps = info.event.extendedProps;
+
+    const startTime = info.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const endTime = info.event.end ? info.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "";   
 
     setSelectedEvent(info.event);
 
@@ -208,13 +234,15 @@ const Calendario = () => {
       taller: talleres.find((t) => t.label === eventProps.taller) || null,
       capacitador:
         capacitadores.find((c) => c.label === eventProps.capacitador) || null,
+      instructor:
+        instructores.find((i) => i.label === eventProps.instructor) || null,
       ficha: Array.isArray(eventProps.ficha)
         ? fichas.filter((f) => eventProps.ficha.includes(f.value))
         : [],
       ambiente: eventProps.ambiente || "",
       allDay: info.event.allDay || false,
     });
-
+    console.log(`Start Time: ${startTime}, End Time: ${endTime}`);
     setIsEditMode(true);
     setShowModal(true);
   };
@@ -238,6 +266,9 @@ const Calendario = () => {
       nombreTaller: newEvent.taller?.label || "",
       nombreCapacitador:
         capacitadores.find((cap) => cap.value === newEvent.capacitador?.value)
+          ?.label || "",
+      nombreInstructor:
+        instructores.find((inst) => inst.value === newEvent.instructor?.value)
           ?.label || "",
       numero_FichaFK: Array.isArray(newEvent.ficha)
         ? newEvent.ficha.map((f) => f.value).join(", ")
@@ -285,6 +316,7 @@ const Calendario = () => {
             ambiente: event.ambiente_procaptall,
             taller: event.nombreTaller,
             capacitador: event.nombreCapacitador,
+            instructor: event.nombreInstructor,
             ficha: event.numero_FichaFK,
             descripcion: event.descripcion_procaptall,
           },
@@ -411,6 +443,18 @@ const Calendario = () => {
                   />
                 </Form.Group>
               </div>
+              <div className="col-md-6">
+                <Form.Group controlId="eventCapacitador">
+                  <Form.Label>Instructor</Form.Label>
+                  <Select
+                    name="instructor"
+                    options={instructores}
+                    value={newEvent.instructor}
+                    onChange={handleSelectChange}
+                    placeholder="Selecciona el instructor"
+                  />
+                </Form.Group>
+              </div>
             </div>
             <div className="row">
               <div className="col-md-12">
@@ -427,6 +471,7 @@ const Calendario = () => {
                 </Form.Group>
               </div>
             </div>
+            
             <div className="row">
               <div className="col-md-6">
                 <Form.Group controlId="eventDate">
@@ -436,6 +481,7 @@ const Calendario = () => {
                     name="date"
                     value={newEvent.date}
                     onChange={handleInputChange}
+                    disabled
                   />
                 </Form.Group>
               </div>
@@ -443,9 +489,9 @@ const Calendario = () => {
                 <Form.Group controlId="eventStartTime">
                   <Form.Label>Hora de Inicio</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="time"
                     name="startTime"
-                    value={newEvent.startTime}
+                    value={newEvent.startTime || ""}
                     onChange={handleInputChange}
                     placeholder="HH:mm:ss"
                   />
@@ -457,9 +503,9 @@ const Calendario = () => {
                 <Form.Group controlId="eventEndTime">
                   <Form.Label>Hora de Fin</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="time"
                     name="endTime"
-                    value={newEvent.endTime}
+                    value={newEvent.endTime || ""}
                     onChange={handleInputChange}
                     placeholder="HH:mm:ss"
                   />

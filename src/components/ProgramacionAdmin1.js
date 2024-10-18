@@ -3,9 +3,9 @@ import Swal from "sweetalert2";
 import "select2";
 import "select2/dist/css/select2.min.css";
 import { utils, writeFile } from "xlsx";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import Insertar from "../static/img/enlaceInsertar.png";
-import Zoom from 'react-medium-image-zoom';
-import 'react-medium-image-zoom/dist/styles.css';
+import "react-medium-image-zoom/dist/styles.css";
 import { createFicha } from "../api/api";
 import {
   updateFicha,
@@ -17,6 +17,7 @@ import {
   getFichas,
   putTaller,
   getTiposDeTalleres,
+  eliminarHorario,
   deleteTaller,
   getTalleres,
   uploadTalleresExcel,
@@ -58,14 +59,38 @@ const ProgramacionAdmin1 = () => {
   }; 
 */
 
-  const handleEliminar = () => {
+const handleEliminar = async () => {
+  if (!horario.id) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "No se pudo obtener el ID del horario para eliminar.",
+      confirmButtonText: "Aceptar",
+    });
+    return;
+  }
+
+  try {
+    await eliminarHorario(horario.id); // Usar el ID del horario para eliminarlo
     Swal.fire({
       icon: "success",
       title: "¡Éxito!",
       text: "El horario se ha eliminado correctamente.",
       confirmButtonText: "Aceptar",
     });
-  };
+
+    // Opcional: Resetea el estado después de eliminar
+    setHorario({ id: null, fechaFin: "", rutaImagen: "" });
+    setShowInfo(false); // Ocultar la información después de eliminar
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: `No se pudo eliminar el horario: ${error.message}`,
+      confirmButtonText: "Aceptar",
+    });
+  }
+};
 
   const toggleDropdown = (e) => {
     const dropdown = e.currentTarget.nextElementSibling;
@@ -1191,38 +1216,56 @@ const ProgramacionAdmin1 = () => {
   };
 
   const [horario, setHorario] = useState({
-    fechaFin: '',
-    rutaImagen: ''
+    id: null,
+    fechaFin: "",
+    rutaImagen: "",
   });
-
 
   const handleBuscar = async () => {
     try {
-      const horarios = await getHorariosPorFichaYCoordinacion(ficha, coordinacion);
-      
+      const horarios = await getHorariosPorFichaYCoordinacion(
+        ficha,
+        coordinacion
+      );
+
       // Verifica si hay datos en el array
       if (horarios && horarios[0]) {
-        const { fecha_fintrimestre_Horari, ruta_imagen_Horari } = horarios[0]; // Accede a la primera posición
-  
+        const { id_Horari, fecha_fintrimestre_Horari, ruta_imagen_Horari } = horarios[0]; // Accede a la primera posición
+
         // Actualiza el estado con los datos obtenidos
         setHorario({
+          id: id_Horari,
           fechaFin: fecha_fintrimestre_Horari,
-          rutaImagen: ruta_imagen_Horari
+          rutaImagen: ruta_imagen_Horari,
         });
-  
+
         setShowInfo(true); // Mostrar la información después de la búsqueda exitosa
       } else {
         console.error("No se encontraron horarios.");
         setShowInfo(false); // Ocultar si no hay datos
+        // Mostrar alerta de que no se encontraron horarios
+        Swal.fire({
+          icon: "info",
+          title: "Sin resultados",
+          text: "No se encontraron horarios para la ficha y coordinación proporcionadas.",
+          confirmButtonText: "Aceptar",
+        });
       }
       console.log("Ruta de la imagen:", horario.rutaImagen);
     } catch (error) {
       console.error("Error al buscar horarios:", error);
       setShowInfo(false); // En caso de error también ocultar la información
+      // Mostrar alerta de error
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Ocurrió un error al buscar los horarios.",
+        confirmButtonText: "Aceptar",
+      });
     }
   };
-  
-  
+
+  const [zoomScale, setZoomScale] = useState(1); 
 
   return (
     <div className="contenedor-principal">
@@ -1323,7 +1366,8 @@ const ProgramacionAdmin1 = () => {
                   type="text"
                   id="coordinacionBusqueda"
                   name="coordinacionBusqueda"
-                  pattern="[A-Za-z]+" title="Solo se permiten letras"
+                  pattern="[A-Za-z]+"
+                  title="Solo se permiten letras"
                   className="input-form-programacion"
                   value={coordinacion}
                   onChange={handleInputChangeCoordinacion}
@@ -1404,14 +1448,26 @@ const ProgramacionAdmin1 = () => {
             />
           </div>
           <div className="image-preview">
-            {/* Aquí se mostrará la imagen cargada del estado */}
             {horario.rutaImagen ? (
-              <Zoom>
-                <img
-                  src={`${horario.rutaImagen}?w=800&h=600&c=fit&q=80`}
-                  alt="Vista previa del horario"
-                />
-              </Zoom>
+              <>
+                <TransformWrapper
+                  initialScale={zoomScale}
+                  scale={zoomScale}
+                  onZoomStop={(e) => setZoomScale(e.state.scale)} // Sincroniza el estado cuando se hace zoom manualmente
+                >
+                  {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
+                    <>
+                      <TransformComponent>
+                        <img
+                          src={`${horario.rutaImagen}?w=800&h=600&c=fit&q=80`}
+                          alt="Vista previa del horario"
+                          style={{ width: "100%", height: "auto" }}
+                        />
+                      </TransformComponent>
+                    </>
+                  )}
+                </TransformWrapper>
+              </>
             ) : (
               <p>No hay imagen disponible</p>
             )}
