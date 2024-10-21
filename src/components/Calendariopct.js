@@ -219,8 +219,8 @@ const Calendario = () => {
   const handleEventClick = (info) => {
     const eventProps = info.event.extendedProps;
 
-    const startTime = info.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    const endTime = info.event.end ? info.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "";   
+    const startTime = info.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+    const endTime = info.event.end ? info.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }) : ""; 
 
     setSelectedEvent(info.event);
 
@@ -229,8 +229,8 @@ const Calendario = () => {
       sede: sede.find((s) => s.value === eventProps.sede) || null,
       descripcion: eventProps.descripcion || "",
       date: info.event.startStr.split("T")[0] || "",
-      startTime: info.event.startStr.split("T")[1] || "",
-      endTime: info.event.endStr.split("T")[1] || "",
+      startTime: startTime,
+      endTime: endTime,
       taller: talleres.find((t) => t.label === eventProps.taller) || null,
       capacitador:
         capacitadores.find((c) => c.label === eventProps.capacitador) || null,
