@@ -1373,6 +1373,7 @@ const handleEliminar = async () => {
                   onChange={handleInputChangeCoordinacion}
                   onFocus={showAllCoordinaciones} // Mostrar todas las opciones al hacer clic
                   placeholder="Escriba una coordinación"
+                  autocomplete="off"
                 />
                 {coordinacion && filteredCoordinaciones.length > 0 && (
                   <div className="options-list">
@@ -1406,6 +1407,7 @@ const handleEliminar = async () => {
                   onChange={handleInputChangeFicha}
                   onFocus={showAllFichas} // Mostrar todas las opciones al hacer clic
                   placeholder="Ingrese el número de ficha"
+                  autocomplete="off"
                 />
                 {ficha && filteredFichas.length > 0 && (
                   <div className="options-list">

@@ -43,38 +43,41 @@ function Login1() {
     return true;
     };
 
-  const handleSubmit = async (event) => {
-
-    event.preventDefault(); // Evita la recarga de la página
-    
-    // Llama a la función de validación del formulario
-    if (!validarFormulario()) {
-      return; // Si la validación falla, detiene la ejecución
-    }
-
-    try {
-      const data = await login(correo, contraseña); // Llama a la API con los valores del formulario
-      console.log("Inicio de sesión exitoso:", data);
-
-      // Guardar el token en el almacenamiento local
-      localStorage.setItem("token", data.token);
-
-      // Dependiendo del rol, redireccionar a diferentes páginas
-      const rol = data.user.rol; // Acceder al rol dentro de "user"
-
-      if (rol === 1) {
-        window.location.href = "/perfilAdmin";
-      } else if (rol === 2) {
-        window.location.href = "/profileUsua";
-      } else if (rol === 3) {
-        window.location.href = "/profileUsua";
-      } else {
-        setError("Rol no reconocido. Contacte con el administrador.");
+    const handleSubmit = async (event) => {
+      event.preventDefault(); // Evita la recarga de la página
+      
+      // Llama a la función de validación del formulario
+      if (!validarFormulario()) {
+          return; // Si la validación falla, detiene la ejecución
       }
-    } catch (err) {
-      console.error("Error de inicio de sesión:", err);
-      setError("Correo o contraseña incorrectos. Inténtalo de nuevo.");
-    }
+  
+      try {
+          const data = await login(correo, contraseña); // Llama a la API con los valores del formulario
+          console.log("Inicio de sesión exitoso:", data);
+  
+          // Guardar el token en el almacenamiento local
+          localStorage.setItem("token", data.token);
+  
+          // Dependiendo del rol, redireccionar a diferentes páginas
+          const rol = data.user.rol; // Acceder al rol dentro de "user"
+          
+          // Llama a la función login del contexto
+          const userData = { name: data.user.name, rol: rol }; // Asegúrate de que data.user tiene el campo name
+          login(userData);
+  
+          if (rol === 1) {
+              window.location.href = "/perfilAdmin";
+          } else if (rol === 2) {
+              window.location.href = "/profileUsua";
+          } else if (rol === 3) {
+              window.location.href = "/profileUsua";
+          } else {
+              setError("Rol no reconocido. Contacte con el administrador.");
+          }
+      } catch (err) {
+          console.error("Error de inicio de sesión:", err);
+          setError("Correo o contraseña incorrectos. Inténtalo de nuevo.");
+      }
   };
 
   return (

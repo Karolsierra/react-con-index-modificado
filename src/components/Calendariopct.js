@@ -208,7 +208,7 @@ const Calendario = () => {
       taller: null,
       capacitador: null,
       instructor:null,
-      ficha: [],
+      ficha: null,
       ambiente: "",
       allDay: false,
     });
@@ -270,9 +270,8 @@ const Calendario = () => {
       nombreInstructor:
         instructores.find((inst) => inst.value === newEvent.instructor?.value)
           ?.label || "",
-      numero_FichaFK: Array.isArray(newEvent.ficha)
-        ? newEvent.ficha.map((f) => f.value).join(", ")
-        : "",
+      numero_FichaFK: Array.isArray(newEvent.ficha) ? newEvent.ficha.length > 0 ? newEvent.ficha.map((f) => f.value).join(", ") 
+        : "" : newEvent.ficha?.value || "",
     };
 
     console.log("Evento a actualizar:", event);
@@ -288,22 +287,17 @@ const Calendario = () => {
       if (isEditMode) {
         console.log("Modo de edición activado.");
         if (!selectedEvent || !selectedEvent.id) {
-          throw new Error("ID del evento no disponible para la actualización.");
+            throw new Error("ID del evento no disponible para la actualización.");
         }
-
+    
         console.log("ID del evento a actualizar:", selectedEvent.id);
         await updateProgramacion(selectedEvent.id, event);
-
+    
+        // Actualiza solo el evento editado en lugar de recargar todo
         setEvents((prev) =>
-          prev.map((e) =>
-            e.id_procaptall === selectedEvent.id ? { ...e, ...event } : e
-          )
+            prev.map((e) => (e.id === selectedEvent.id ? { ...e, ...event } : e))
         );
-        Swal.fire(
-          "Éxito",
-          "El evento ha sido actualizado correctamente.",
-          "success"
-        );
+        Swal.fire("Éxito", "El evento ha sido actualizado correctamente.", "success");
       } else {
         const newEventResponse = await createProgramacion(event);
         const newEventData = {
@@ -343,33 +337,26 @@ const Calendario = () => {
   };
 
   const handleDeleteEvent = async () => {
-    const today = new Date().setHours(0, 0, 0, 0); // Fecha actual sin la hora
-    const eventDate = new Date(selectedEvent.start).setHours(0, 0, 0, 0); // Fecha del evento sin la hora
+    const today = new Date().setHours(0, 0, 0, 0);
+    const eventDate = new Date(selectedEvent.start).setHours(0, 0, 0, 0);
 
-    // Verificar si la fecha del evento es anterior a hoy
     if (eventDate < today) {
-      Swal.fire(
-        "Error",
-        "No puedes eliminar una programación anterior a hoy.",
-        "error"
-      );
-      return;
+        Swal.fire("Error", "No puedes eliminar una programación anterior a hoy.", "error");
+        return;
     }
 
     if (selectedEvent) {
-      try {
-        await deleteProgramacion(selectedEvent.id);
-
-        // Refresca el calendario para ver los cambios
-        await loadEvents();
-
-        setEvents(events.filter((event) => event.id !== selectedEvent.id));
-        setShowModal(false);
-      } catch (error) {
-        console.error("Error deleting event", error);
-      }
+        try {
+            await deleteProgramacion(selectedEvent.id);
+            setEvents((prev) => prev.filter((event) => event.id !== selectedEvent.id));
+            setShowModal(false);
+            Swal.fire("Éxito", "El evento ha sido eliminado correctamente.", "success");
+        } catch (error) {
+            console.error("Error al eliminar el evento", error);
+            Swal.fire("Error", "Hubo un error al eliminar la programación.", "error");
+        }
     }
-  };
+};
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -428,6 +415,7 @@ const Calendario = () => {
                     value={newEvent.sede}
                     onChange={handleSelectChange}
                     placeholder="Selecciona la sede"
+                    
                   />
                 </Form.Group>
               </div>
@@ -440,6 +428,7 @@ const Calendario = () => {
                     value={newEvent.ambiente}
                     onChange={handleInputChange}
                     placeholder="Ingrese el ambiente"
+                    autocomplete="off"
                   />
                 </Form.Group>
               </div>
@@ -452,6 +441,7 @@ const Calendario = () => {
                     value={newEvent.instructor}
                     onChange={handleSelectChange}
                     placeholder="Selecciona el instructor"
+                  
                   />
                 </Form.Group>
               </div>
@@ -467,6 +457,7 @@ const Calendario = () => {
                     value={newEvent.descripcion}
                     onChange={handleInputChange}
                     style={{ width: "100%" }}
+                    autocomplete="off"
                   />
                 </Form.Group>
               </div>
@@ -494,6 +485,7 @@ const Calendario = () => {
                     value={newEvent.startTime || ""}
                     onChange={handleInputChange}
                     placeholder="HH:mm:ss"
+                    autocomplete="off"
                   />
                 </Form.Group>
               </div>
@@ -508,6 +500,7 @@ const Calendario = () => {
                     value={newEvent.endTime || ""}
                     onChange={handleInputChange}
                     placeholder="HH:mm:ss"
+                    autocomplete="off"
                   />
                 </Form.Group>
               </div>
@@ -534,6 +527,7 @@ const Calendario = () => {
                     value={newEvent.capacitador}
                     onChange={handleSelectChange}
                     placeholder="Selecciona el capacitador"
+                    
                   />
                 </Form.Group>
               </div>
@@ -546,7 +540,7 @@ const Calendario = () => {
                     value={newEvent.ficha}
                     onChange={handleSelectChange}
                     placeholder="Selecciona la ficha"
-                    isMulti
+                   
                   />
                 </Form.Group>
               </div>

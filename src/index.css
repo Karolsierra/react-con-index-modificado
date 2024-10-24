@@ -1,6 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
+.instrucciones-busqueda {
+  font-size: 14px; /* Tamaño del texto */
+  color: #666; /* Color del texto */
+  margin-top: 8px; /* Espaciado superior */
+  margin-bottom: 16px; /* Espaciado inferior */
+}
 /*NAVBAR ADMINISTRADOR*/
 /* Estilo del cuerpo */
 .body-navbarAdmin {
@@ -9,6 +15,12 @@
   padding: 0;
   font-family: "Work Sans Regular", sans-serif;
   overflow: hidden;
+}
+
+.icono-text {
+  font-size: 12px; /* Tamaño pequeño del texto */
+  color: #555; /* Color del texto */
+  margin-top: 4px; /* Espaciado entre el icono y el texto */
 }
 
 /* Estilo del encabezado */
@@ -106,7 +118,7 @@
 
 /* Efecto de hover en el enlace de cerrar sesión */
 .cerrarSesion .cerrarSesion-navadmin:hover {
-  background-color: #5cb85cc2;
+  background-color: #5cb85cc2;;
 }
 
 /* Estilo de la línea inferior para el botón de cerrar sesión activo */
@@ -227,10 +239,20 @@
   }
 
   .nav-admin .ul-navadmin .li-navadmin .enlaceIcono-navadmin {
-    padding: 6px 14px;
-    /* Aumenta el padding de los enlaces para mejor visibilidad */
-    font-size: 16px;
-    /* Aumenta el tamaño de la fuente de los enlaces */
+    display: flex;
+    flex-direction: column; /* Coloca el icono y el texto en columna */
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra horizontalmente */
+    padding: 4px 10px;
+    text-decoration: none;
+    color: #000000;
+    transition: color 0.3s, background-color 0.3s;
+    border-radius: 50px;
+    height: 70px; /* Asegúrate de que haya suficiente espacio para el texto */
+  }
+  .nav-admin .ul-navadmin .li-navadmin .enlaceIcono-navadmin .icono {
+    width: 3vh; /* Ajusta el tamaño del ícono */
+    height: 3vh; /* Ajusta el tamaño del ícono */
   }
 
   .cerrarSesion .cerrarSesion-navadmin {
@@ -791,12 +813,15 @@ swal.fire title {
 /* Contenedor principal del perfil de administrador */
 html {
   margin: 0 !important;
+  height: 100% !important;
+  width: 100% !important;
+  background-color: #5cb85c15 !important;
   /* Elimina el margen predeterminado */
 }
 
 html,
 body {
-  height: auto !important;
+  height: 100% !important;
   width: auto !important;
   background-color: #5cb85c15 !important;
 }
@@ -2406,7 +2431,7 @@ button[type="submit"]:hover {
   list-style: none;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box; 
 }
 
 .row {

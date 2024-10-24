@@ -117,38 +117,48 @@ function Usuarios1() {
         const nombre = document.getElementById("nombre").value.trim();
         const apellido = document.getElementById("apellido").value.trim();
         const correo = document.getElementById("correo_Usua").value.trim();
-        const tipoDocumento = document.getElementById("tipoDocumento").value.trim();
+        const tipoDocumento = document
+          .getElementById("tipoDocumento")
+          .value.trim();
         const documento = document.getElementById("documento_1").value.trim();
         const genero = document.getElementById("genero").value.trim();
         const rol = document.getElementById("id_Rol1FK").value.trim();
-  
+
         // Expresiones regulares para validaciones
         const regexNombreApellido = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
         const regexDocumento = /^\d+$/;
         const regexCorreo =
           /^[a-zA-Z0-9._%+-]+@(soy\.sena\.edu\.co|sena\.edu\.co|misena\.edu\.co)$/;
-  
+
         // Validación de campos
         if (!regexNombreApellido.test(nombre)) {
-          Swal.showValidationMessage(`El nombre solo puede contener letras y espacios.`);
+          Swal.showValidationMessage(
+            `El nombre solo puede contener letras y espacios.`
+          );
           return;
         }
-  
+
         if (!regexNombreApellido.test(apellido)) {
-          Swal.showValidationMessage(`El apellido solo puede contener letras y espacios.`);
+          Swal.showValidationMessage(
+            `El apellido solo puede contener letras y espacios.`
+          );
           return;
         }
-  
+
         if (!regexDocumento.test(documento)) {
-          Swal.showValidationMessage(`El número de documento solo puede contener números.`);
+          Swal.showValidationMessage(
+            `El número de documento solo puede contener números.`
+          );
           return;
         }
-  
+
         if (!regexCorreo.test(correo)) {
-          Swal.showValidationMessage(`El correo debe ser institucional y terminar en soy.sena.edu.co, sena.edu.co o misena.edu.co.`);
+          Swal.showValidationMessage(
+            `El correo debe ser institucional y terminar en soy.sena.edu.co, sena.edu.co o misena.edu.co.`
+          );
           return;
         }
-  
+
         const rolesValidos = ["1", "2", "3"];
         if (
           !nombre ||
@@ -160,10 +170,12 @@ function Usuarios1() {
           !rol ||
           !rolesValidos.includes(rol)
         ) {
-          Swal.showValidationMessage(`Por favor completa todos los campos correctamente.`);
+          Swal.showValidationMessage(
+            `Por favor completa todos los campos correctamente.`
+          );
           return;
         }
-  
+
         const nuevoUsuario = {
           nombre,
           apellido,
@@ -173,7 +185,7 @@ function Usuarios1() {
           genero,
           rol,
         };
-  
+
         try {
           const response = await registerUsuario(nuevoUsuario); // Enviar usuario a la API
           Swal.fire({
@@ -195,20 +207,20 @@ function Usuarios1() {
         }
       },
     });
-  
+
     // Validaciones en tiempo real
     document.addEventListener("DOMContentLoaded", function () {
       const nombreInput = document.getElementById("nombre");
       const apellidoInput = document.getElementById("apellido");
       const documentoInput = document.getElementById("documento_1");
       const correoInput = document.getElementById("correo_Usua");
-  
+
       // Validar entrada de nombre y apellido
       const validateTextInput = (input) => {
         input.addEventListener("input", function () {
           this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, ""); // Permitir solo letras y espacios
         });
-  
+
         // Prevenir escritura de caracteres no permitidos
         input.addEventListener("keydown", function (event) {
           const invalidChars = /[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/;
@@ -217,21 +229,21 @@ function Usuarios1() {
           }
         });
       };
-  
+
       validateTextInput(nombreInput);
       validateTextInput(apellidoInput);
-  
+
       // Validar entrada de documento
       documentoInput.addEventListener("input", function () {
         this.value = this.value.replace(/[^0-9]/g, ""); // Permitir solo números
       });
-  
+
       documentoInput.addEventListener("keydown", function (event) {
         if (!/^\d$/.test(event.key) && event.key.length === 1) {
           event.preventDefault();
         }
       });
-  
+
       // Validar el correo institucional al perder el foco
       correoInput.addEventListener("blur", function () {
         const value = this.value;
@@ -245,7 +257,6 @@ function Usuarios1() {
       });
     });
   };
-
 
   const handleSearch = async (event) => {
     event.preventDefault();
@@ -595,96 +606,98 @@ function Usuarios1() {
 
   // Renderizar condicionalmente el formulario con los datos del usuario
   return (
-    <div>
-      <h2 className="titulo-usuarios">¿Cuál usuario desea buscar?</h2>
-      <div className="buscador-usuarios">
-        <form onSubmit={handleSearch}>
-          <div className="form-busqueda-usuarios">
-            <div className="campo-usuarios">
-              <label
-                className="label-form-registrar-usuarios"
-                htmlFor="tipo-documento"
-              >
-                Tipo de documento:
-              </label>
-              <select
-                className="select-form-registrar-usuarios"
-                id="tipo-documento"
-                name="tipo-documento"
-                required
-              >
-                <option value="">Seleccione un tipo de documento</option>
-                <option value="CC">Cédula de ciudadanía</option>
-                <option value="CE">Cédula de extranjería</option>
-                <option value="PEP">PEP</option>
-                <option value="NIT">NIT</option>
-              </select>
+    <div  className="body-usuarios">
+      <div>
+        <h2 className="titulo-usuarios">¿Cuál usuario desea buscar?</h2>
+        <div className="buscador-usuarios">
+          <form onSubmit={handleSearch}>
+            <div className="form-busqueda-usuarios">
+              <div className="campo-usuarios">
+                <label
+                  className="label-form-registrar-usuarios"
+                  htmlFor="tipo-documento"
+                >
+                  Tipo de documento:
+                </label>
+                <select
+                  className="select-form-registrar-usuarios"
+                  id="tipo-documento"
+                  name="tipo-documento"
+                  required
+                >
+                  <option value="">Seleccione un tipo de documento</option>
+                  <option value="CC">Cédula de ciudadanía</option>
+                  <option value="CE">Cédula de extranjería</option>
+                  <option value="PEP">PEP</option>
+                  <option value="NIT">NIT</option>
+                </select>
+              </div>
+              <div className="campo-usuarios">
+                <label
+                  className="label-form-registrar-usuarios"
+                  htmlFor="documento"
+                >
+                  Número de documento:
+                </label>
+                <input
+                  className="input-form-registrar-usuarios"
+                  type="text"
+                  id="documento"
+                  name="documento"
+                  required
+                />
+              </div>
+              <div className="campo-usuarios">
+                <label
+                  className="label-form-registrar-usuarios"
+                  htmlFor="nombre-busqueda"
+                >
+                  Nombre (opcional):
+                </label>
+                <input
+                  className="input-form-registrar-usuarios"
+                  type="text"
+                  id="nombre-busqueda"
+                  name="nombre"
+                />
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="campo-usuarios">
+                <button
+                  type="submit"
+                  id="buscarButton"
+                  className="buscar-usuario"
+                >
+                  Buscar
+                </button>
+              </div>
+              <div className="campo-usuarios">
+                <button
+                  type="button"
+                  id="registrar"
+                  className="registrar-usuario"
+                  onClick={handleRegister}
+                >
+                  Registrar nuevo usuario
+                </button>
+              </div>
             </div>
             <div className="campo-usuarios">
-              <label
-                className="label-form-registrar-usuarios"
-                htmlFor="documento"
+              <Link
+                href="#"
+                id="bulkRegisterLink"
+                className="link-cargar-usuarios"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleBulkRegister();
+                }}
               >
-                Número de documento:
-              </label>
-              <input
-                className="input-form-registrar-usuarios"
-                type="text"
-                id="documento"
-                name="documento"
-                required
-              />
+                Agregar más de un usuario
+              </Link>
             </div>
-            <div className="campo-usuarios">
-              <label
-                className="label-form-registrar-usuarios"
-                htmlFor="nombre-busqueda"
-              >
-                Nombre (opcional):
-              </label>
-              <input
-                className="input-form-registrar-usuarios"
-                type="text"
-                id="nombre-busqueda"
-                name="nombre"
-              />
-            </div>
-          </div>
-          <div className="form-group">
-            <div className="campo-usuarios">
-              <button
-                type="submit"
-                id="buscarButton"
-                className="buscar-usuario"
-              >
-                Buscar
-              </button>
-            </div>
-            <div className="campo-usuarios">
-              <button
-                type="button"
-                id="registrar"
-                className="registrar-usuario"
-                onClick={handleRegister}
-              >
-                Registrar nuevo usuario
-              </button>
-            </div>
-          </div>
-          <div className="campo-usuarios">
-            <Link
-              href="#"
-              id="bulkRegisterLink"
-              className="link-cargar-usuarios"
-              onClick={(e) => {
-                e.preventDefault();
-                handleBulkRegister();
-              }}
-            >
-              Agregar más de un usuario
-            </Link>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   );
