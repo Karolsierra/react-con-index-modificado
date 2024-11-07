@@ -1219,7 +1219,7 @@ body {
 .form-container-calendariousua {
   overflow-y: auto;
   overflow-x: hidden;
-  height: 350px;
+  height: 450px;
   padding: 20px;
   /* Ajusta el padding según el diseño */
   border: 2px solid #5cb85c;
@@ -1228,7 +1228,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   /* Asegura que padding no afecte el tamaño total */
-  margin-top: 30vh;
+  margin-top: 20vh;
   /* Ajusta el margen superior según sea necesario */
   margin-left: 65%;
   transform: translateX(-160%);
@@ -1240,6 +1240,30 @@ body {
   justify-content: center;
   margin-top: 0;
 }
+
+/* Lista desplegable para el campo Ficha */
+.ficha-dropdown {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ddd;
+  max-height: 150px;
+  overflow-y: auto;
+  position: absolute;
+  background-color: white;
+  width: calc(92% - 2rem);
+  justify-content: center;
+}
+
+.ficha-dropdown li {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.ficha-dropdown li:hover {
+  background-color: #f0f0f0;
+}
+
 
 .form-container-calendariousua .label-ficha-calendariousua {
   display: block;

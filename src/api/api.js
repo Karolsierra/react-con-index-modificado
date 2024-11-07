@@ -485,14 +485,9 @@ export const login = async (correo_Usua, clave_Usua) => {
   }
 };
 
-export const getProgramacionesPorFichaYCoordinacion = async (
-  ficha,
-  coordinacion
-) => {
+export const getProgramacionesPorFicha = async (ficha) => {
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/programacion/ficha/${ficha}/cordinacion/${coordinacion}`
-    );
+    const response = await fetch(`${API_BASE_URL}/programacion/ficha/${ficha}`);
     if (!response.ok) {
       throw new Error("Error en la respuesta de la API");
     }
