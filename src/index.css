@@ -640,6 +640,7 @@ swal.fire title {
   border: 2px solid #5cb85c;
   padding: 0 0 0.03em;
   display: flex;
+  
 }
 
 .swal2-validation-message {
@@ -821,7 +822,7 @@ html {
 
 html,
 body {
-  height: 100% !important;
+  height: auto !important;
   width: auto !important;
   background-color: #5cb85c15 !important;
 }
@@ -1303,7 +1304,7 @@ body {
   /* Usa todo el ancho disponible */
   max-width: 600px;
   /* Ajusta el ancho máximo según tu diseño */
-  height: 315px;
+  height: 370px;
   /* Ajusta la altura según sea necesario */
   padding: 10px;
   border: 2px solid #5cb85c;
@@ -1312,7 +1313,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   /* Asegura que padding no afecte el tamaño total */
-  margin-top: -35%;
+  margin-top: -30%;
   /* Ajusta el margen superior según sea necesario */
   margin-left: 50%;
   /* Centra el contenedor horizontalmente */
@@ -2322,6 +2323,13 @@ button[type="submit"]:hover {
 
 .image-preview:active {
   cursor: grabbing; /* Cambia el cursor al hacer clic */
+}
+
+.image-preview-aggpro{
+  width: 100px ;
+  height: 100px;
+  margin: -17px auto 20px auto;
+
 }
 
 .swal2-confirm.swal2-styled {

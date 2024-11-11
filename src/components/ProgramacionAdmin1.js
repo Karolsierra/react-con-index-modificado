@@ -1309,7 +1309,7 @@ const handleEliminar = async () => {
           </div>
 
           {imagePreview && (
-            <div className="image-preview">
+            <div className="image-preview-aggpro">
               <img
                 src={imagePreview}
                 alt="Vista previa"

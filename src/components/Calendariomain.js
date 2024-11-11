@@ -16,6 +16,12 @@ function Calendariomain() {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
 
+  // Array de nombres de los meses
+  const monthNames = [
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+  ];
+
   const generateDaysArray = (year, month, events) => {
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const daysArray = [];
@@ -36,23 +42,54 @@ function Calendariomain() {
 
   const handleDayClick = (dateStr) => {
     const dailyEvents = events.filter(e => e.fecha === dateStr);
+  
     if (dailyEvents.length > 0) {
       const eventDetails = dailyEvents.map(e => 
-        `<div style="text-align: left;">
-          <strong>Taller:</strong> ${e.nombre_Taller}<br>
-          <strong>Capacitador:</strong> ${e.nombre_Capacitador}<br>
-          <strong>Descripción:</strong> ${e.descripcion_procaptall}<br>
-          <strong>Sede:</strong> ${e.sede_procaptall}<br>
-          <strong>Ambiente:</strong> ${e.ambiente_procaptall}<br>
-          <strong>Fecha:</strong> ${e.fecha}<br>
-          <strong>Hora Inicio:</strong> ${e.horaInicio_procaptall}<br>
-          <strong>Hora Fin:</strong> ${e.horaFin_procaptall}
-        </div>`).join('<hr/>');
-
+        `<div style="
+          background-color: #f2f2f2;
+          padding: 15px;
+          border-radius: 8px;
+          margin-bottom: 0px;
+          text-align: left;
+          font-family: Arial, sans-serif;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        ">
+          <div style="margin-bottom: 10px;">
+            <strong style="color: #333;">Taller:</strong> <span>${e.nombre_Taller}</span>
+          </div>
+          <div style="margin-bottom: 10px;">
+            <strong style="color: #333;">Capacitador:</strong> <span>${e.nombre_Capacitador}</span>
+          </div>
+          <div style="margin-bottom: 10px;">
+            <strong style="color: #333;">Instructor:</strong> <span>${e.nombre_Instructor}</span>
+          </div>
+          <div style="margin-bottom: 10px;">
+            <strong style="color: #333;">Detalles:</strong> <span>${e.descripcion_procaptall}</span>
+          </div>
+          <div style="margin-bottom: 10px;">
+            <strong style="color: #333;">Ubicación:</strong> <span>${e.sede_procaptall}</span>
+          </div>
+          <div style="margin-bottom: 10px;">
+            <strong style="color: #333;">Ambiente:</strong> <span>${e.ambiente_procaptall}</span>
+          </div>
+          <div style="margin-bottom: 10px;">
+            <strong style="color: #333;">Fecha:</strong> <span>${e.fecha}</span>
+          </div>
+          <div style="margin-bottom: 10px;">
+            <strong style="color: #333;">Horario:</strong> <span>${e.horaInicio_procaptall} - ${e.horaFin_procaptall}</span>
+          </div>
+        </div>`).join('<hr style="border: 1px solid #ccc; margin: 8px 0;" />');
+  
       Swal.fire({
-        title: `Programación para ${dateStr}`,
+        title: `<h3 style="color: #5cb85c; margin: 0; font-weight: bold;">Detalles del Taller</h3>`,
         html: eventDetails,
         confirmButtonText: 'Cerrar',
+        confirmButtonColor: '#5cb85c', // Verde más suave para confirmar
+        width: 450, // Un poco más ancho para que no se vea tan estrecho
+        background: '#fff',
+        customClass: {
+          popup: 'swal2-custom-popup'
+        }
       });
     } else {
       Swal.fire({
@@ -60,10 +97,10 @@ function Calendariomain() {
         text: 'No hay eventos programados para este día.',
         icon: 'info',
         confirmButtonText: 'Cerrar',
+        confirmButtonColor: '#5cb85c',
       });
     }
   };
-
 
   useEffect(() => {
     const fetchFichas = async () => {
@@ -100,54 +137,46 @@ function Calendariomain() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
     const ficha = selectedFicha; // La ficha seleccionada
-  
+
     try {
         const response = await getProgramacionesPorFicha(ficha); // Obtener las programaciones
         console.log("datos de la API:", response);
+
         // Usar un Set para eliminar duplicados basados en la fecha y el nombre del taller
         const uniqueEvents = [];
         const seen = new Set();
-  
-        response.forEach(item => {
-            // Asegurarse de que los datos estén bien definidos antes de acceder a las propiedades
-            if (item && item.fecha_procaptall) {
-                Object.values(item).forEach(event => {
-                    // Verificar que la fecha y nombre del taller estén presentes
-                    if (item && item.fecha_procaptall) {
-                    const formattedDate = new Date(item.fecha_procaptall).toISOString().split('T')[0]; // Formato 'yyyy-mm-dd'
 
-                    if (event.fecha_procaptall && event.nombre_Taller) {
-                        const key = `${event.fecha_procaptall}-${event.nombre_Taller}`;
-                        
-                        if (!seen.has(key)) {
-                            seen.add(key);
-                            uniqueEvents.push({
-                                sede_procaptall: event.sede_procaptall,
-                                descripcion_procaptall: event.descripcion_procaptall,
-                                ambiente_procaptall: event.ambiente_procaptall,
-                                fecha: formattedDate,
-                                horaInicio_procaptall: event.horaInicio_procaptall,
-                                horaFin_procaptall: event.horaFin_procaptall,
-                                numero_FichaFK: event.numero_FichaFK,
-                                nombre_Taller: event.nombre_Taller,
-                                nombre_Capacitador: event.nombre_Capacitador,
-                                nombre_Instructor: event.nombre_Instructor,
-                            });
-                        }
-                    }
-              }});
+        response.forEach(item => {
+            // Verificar si cada item tiene las propiedades necesarias antes de usar
+            if (item.fecha_procaptall && item.nombre_Taller) {
+                const formattedDate = new Date(item.fecha_procaptall).toISOString().split('T')[0];
+                const key = `${formattedDate}-${item.nombre_Taller}`;
+                if (!seen.has(key)) {
+                    seen.add(key);
+                    uniqueEvents.push({
+                        sede_procaptall: item.sede_procaptall,
+                        descripcion_procaptall: item.descripcion_procaptall,
+                        ambiente_procaptall: item.ambiente_procaptall,
+                        fecha: formattedDate,
+                        horaInicio_procaptall: item.horaInicio_procaptall,
+                        horaFin_procaptall: item.horaFin_procaptall,
+                        numero_FichaFK: item.numero_FichaFK,
+                        nombre_Taller: item.nombre_Taller,
+                        nombre_Capacitador: item.nombre_Capacitador,
+                        nombre_Instructor: item.nombre_Instructor,
+                    });
+                }
             }
         });
-  
+
         console.log("Eventos únicos mapeados:", uniqueEvents);
         setEvents(uniqueEvents);
-  
+
         const daysArray = generateDaysArray(currentYear, currentMonth, uniqueEvents);
         setDaysInMonth(daysArray);
         setCalendarVisible(true); // Mostrar el calendario
-  
+
     } catch (error) {
         console.error("Error al obtener programaciones:", error);
         Swal.fire({
@@ -158,8 +187,6 @@ function Calendariomain() {
         });
     }
 };
-
-  
 
   return (
     <main>
@@ -222,14 +249,15 @@ function Calendariomain() {
       </div>
       {calendarVisible && (
         <div className="calendar-container">
+          <h3>{monthNames[currentMonth]} {currentYear}</h3> {/* Nombre del mes */}
           <div className="calendar-grid">
-            {daysInMonth.map(day => (
+            {daysInMonth.map((day, index) => (
               <div
-                key={day.dateStr}
-                className={`calendar-day ${day.hasEvent ? 'event' : ''}`}
+                key={index}
+                className={`calendar-day ${day.hasEvent ? "event" : ""}`}
                 onClick={() => handleDayClick(day.dateStr)}
               >
-                {day.day}
+                <span>{day.day}</span>
               </div>
             ))}
           </div>
