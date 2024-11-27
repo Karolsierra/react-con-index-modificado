@@ -5,49 +5,60 @@ import estudio from "../static/img/estudio.png";
 
 function Iniciosection1() {
   return (
-    <div className="inicio-container">
-      <h2 className="inicio-titulo">Los diferentes servicios</h2>
+    <div>
+      <section className="support-programs-container">
+        <div className="support-programs">
+          <h2 className="support-title">Los diferentes servicios</h2>
 
-      <div className="inicio-cards-container">
-        <div className="inicio-card">
-          <h3 className="inicio-card-titulo">Asesoría Psicológica</h3>
-          <img
-            className="inicio-card-imagen"
-            src={asesoria_psicologica}
-            alt="Asesoría Psicológica"
-          />
-          <p className="inicio-card-texto">
-            El servicio de asesoría psicológica del SENA ofrece apoyo emocional y mental a los estudiantes.
-            Proporciona un espacio confidencial para tratar problemas como el estrés académico, la ansiedad y la depresión.
-          </p>
-        </div>
+          <div className="support-cards">
+            {/* Tarjeta Asesoría Psicológica */}
+            <div className="support-card">
+              <img
+                className="support-image"
+                src={asesoria_psicologica}
+                alt="Asesoría Psicológica"
+              />
+              <div className="card-content">
+                <h3 className="card-title">Asesoría Psicológica</h3>
+                <p className="card-text">
+                El servicio de asesoría psicológica del SENA brinda apoyo emocional
+                y mental a los estudiantes, ofreciendo un espacio confidencial para tratar 
+                problemas como estrés, ansiedad y depresión. Los estudiantes pueden acceder a
+                sesiones individuales con psicólogos y participar en talleres para mejorar el manejo del estrés y el bienestar emocional.
+                </p>
+              </div>
+            </div>
 
-        <div className="inicio-card">
-          <h3 className="inicio-card-titulo">Actividades Recreativas</h3>
-          <img
-            className="inicio-card-imagen"
-            src={asesoria_psicologica}
-            alt="Actividades Recreativas"
-          />
-          <p className="inicio-card-texto">
-          Las actividades recreativas en el SENA promueven el desarrollo integral de los estudiantes 
-          fuera del ámbito académico, con eventos deportivos, culturales y recreativos fomentando el trabajo en equipo.
-          </p>
-        </div>
+            {/* Tarjeta Actividades Recreativas */}
+            <div className="support-card">
+              <img className="support-image" src={actividades} alt="Actividades Recreativas" />
+              <div className="card-content">
+                <h3 className="card-title">Actividades Recreativas</h3>
+                <p className="card-text">
+                Las actividades recreativas del SENA promueven el desarrollo integral de los 
+                estudiantes fuera del ámbito académico. Incluyen eventos deportivos, culturales y 
+                recreativos que fomentan la participación, el trabajo en equipo y el bienestar físico y 
+                mental, ayudando a los estudiantes a integrarse y disfrutar de una experiencia educativa más equilibrada.
+                </p>
+              </div>
+            </div>
 
-        <div className="inicio-card">
-          <h3 className="inicio-card-titulo">Apoyo Académico</h3>
-          <img
-            className="inicio-card-imagen"
-            src={estudio}
-            alt="Apoyo Académico"
-          />
-          <p className="inicio-card-texto">
-            El apoyo académico del SENA proporciona asistencia para mejorar el rendimiento educativo de los estudiantes.
-            Ofrece tutorías personalizadas, talleres de técnicas de estudio y asesoría .
-          </p>
+            {/* Tarjeta Apoyo Académico */}
+            <div className="support-card">
+              <img className="support-image" src={estudio} alt="Apoyo Académico" />
+              <div className="card-content">
+                <h3 className="card-title">Apoyo Académico</h3>
+                <p className="card-text">
+                El apoyo académico del SENA ayuda a mejorar el rendimiento de los estudiantes mediante tutorías
+                 personalizadas, talleres de técnicas de estudio y asesoría en la planificación del tiempo. 
+                 También ofrece materiales educativos y acceso a plataformas de aprendizaje para superar 
+                 dificultades académicas y optimizar habilidades de estudio.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
